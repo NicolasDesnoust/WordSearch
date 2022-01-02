@@ -1,0 +1,9 @@
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+word-search:
+  cors:
+    allowed-headers: "*"
+    allowed-methods: GET,POST,HEAD,OPTIONS,PUT,DELETE
+    allowed-origins: "http://localhost:4200"
