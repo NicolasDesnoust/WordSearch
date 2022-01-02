@@ -1,11 +1,5 @@
 package io.github.nicolasdesnoust.wordsearch.configuration;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import io.github.nicolasdesnoust.wordsearch.domain.GridFactory;
 import io.github.nicolasdesnoust.wordsearch.domain.OCRService;
 import io.github.nicolasdesnoust.wordsearch.domain.WordsFactory;
@@ -20,19 +14,39 @@ import io.github.nicolasdesnoust.wordsearch.domain.wordfinding.TopToBottomWordFi
 import io.github.nicolasdesnoust.wordsearch.domain.wordfinding.WordFinder;
 import io.github.nicolasdesnoust.wordsearch.domain.wordfinding.WordFindingFacade;
 import io.github.nicolasdesnoust.wordsearch.usecases.ConvertsGridPictureUseCase;
+import io.github.nicolasdesnoust.wordsearch.usecases.ConvertsWordsPictureUseCase;
 import io.github.nicolasdesnoust.wordsearch.usecases.SolveWordSearchUseCase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 @Configuration
 public class WordSearchApplicationContext {
 
     @Bean
-    public ConvertsGridPictureUseCase convertsGridPictureUseCase(@Autowired OCRService ocrService, @Autowired GridFactory gridFactory) {
+    public ConvertsGridPictureUseCase convertsGridPictureUseCase(
+            @Autowired OCRService ocrService,
+            @Autowired GridFactory gridFactory
+    ) {
         return new ConvertsGridPictureUseCase(ocrService, gridFactory);
     }
 
+    @Bean
+    public ConvertsWordsPictureUseCase convertsWordsPictureUseCase(
+            @Autowired OCRService ocrService,
+            @Autowired WordsFactory wordsFactory
+    ) {
+        return new ConvertsWordsPictureUseCase(ocrService, wordsFactory);
+    }
 
     @Bean
-    public SolveWordSearchUseCase solveWordSearchUseCase(@Autowired GridFactory gridFactory, @Autowired WordsFactory wordsFactory, @Autowired WordFindingFacade wordFindingFacade) {
+    public SolveWordSearchUseCase solveWordSearchUseCase(
+            @Autowired GridFactory gridFactory,
+            @Autowired WordsFactory wordsFactory,
+            @Autowired WordFindingFacade wordFindingFacade
+    ) {
         return new SolveWordSearchUseCase(gridFactory, wordsFactory, wordFindingFacade);
     }
 
