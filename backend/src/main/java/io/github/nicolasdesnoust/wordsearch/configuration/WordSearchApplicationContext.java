@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import io.github.nicolasdesnoust.wordsearch.domain.GridFactory;
+import io.github.nicolasdesnoust.wordsearch.domain.OCRService;
 import io.github.nicolasdesnoust.wordsearch.domain.WordsFactory;
 import io.github.nicolasdesnoust.wordsearch.domain.wordfinding.BottomLeftToTopRightWordFinder;
 import io.github.nicolasdesnoust.wordsearch.domain.wordfinding.BottomRightToTopLeftWordFinder;
@@ -18,14 +19,26 @@ import io.github.nicolasdesnoust.wordsearch.domain.wordfinding.TopRightToBottomL
 import io.github.nicolasdesnoust.wordsearch.domain.wordfinding.TopToBottomWordFinder;
 import io.github.nicolasdesnoust.wordsearch.domain.wordfinding.WordFinder;
 import io.github.nicolasdesnoust.wordsearch.domain.wordfinding.WordFindingFacade;
+import io.github.nicolasdesnoust.wordsearch.usecases.ConvertsGridPictureUseCase;
 import io.github.nicolasdesnoust.wordsearch.usecases.SolveWordSearchUseCase;
 
 @Configuration
 public class WordSearchApplicationContext {
 
     @Bean
+    public ConvertsGridPictureUseCase convertsGridPictureUseCase(@Autowired OCRService ocrService, @Autowired GridFactory gridFactory) {
+        return new ConvertsGridPictureUseCase(ocrService, gridFactory);
+    }
+
+
+    @Bean
     public SolveWordSearchUseCase solveWordSearchUseCase(@Autowired GridFactory gridFactory, @Autowired WordsFactory wordsFactory, @Autowired WordFindingFacade wordFindingFacade) {
         return new SolveWordSearchUseCase(gridFactory, wordsFactory, wordFindingFacade);
+    }
+
+    @Bean
+    public OCRService ocrService() {
+        return new OCRService();
     }
 
     @Bean
