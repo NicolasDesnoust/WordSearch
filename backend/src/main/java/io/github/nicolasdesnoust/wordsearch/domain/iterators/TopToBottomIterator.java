@@ -4,9 +4,12 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.stream.IntStream;
 
+import io.github.nicolasdesnoust.wordsearch.domain.Coordinates;
+import io.github.nicolasdesnoust.wordsearch.domain.Direction;
 import io.github.nicolasdesnoust.wordsearch.domain.Grid;
+import io.github.nicolasdesnoust.wordsearch.domain.GridLine;
 
-public class TopToBottomIterator implements Iterator<String> {
+public class TopToBottomIterator implements Iterator<GridLine> {
     
     private final Grid grid;
     private int currentColumnIndex;
@@ -22,9 +25,14 @@ public class TopToBottomIterator implements Iterator<String> {
     }
 
     @Override
-    public String next() {        
+    public GridLine next() {
         if(hasNext()) {
-            return getColumn(grid.getLetters(), currentColumnIndex++);
+            String column = getColumn(grid.getLetters(), currentColumnIndex);
+            Coordinates firstCellCoordinates = new Coordinates(currentColumnIndex, 0);
+
+            currentColumnIndex++;
+
+            return new GridLine(column, Direction.TOP_TO_BOTTOM, firstCellCoordinates);
         } else {
             throw new NoSuchElementException();
         }

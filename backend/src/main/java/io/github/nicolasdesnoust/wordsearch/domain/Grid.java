@@ -29,8 +29,8 @@ public class Grid {
 
     public void markLettersAsUsed(WordLocation wordLocation) {
         int wordLength = wordLocation.getWord().length();
-        int y = wordLocation.getY();
-        int x = wordLocation.getX();
+        int x = wordLocation.getCoordinates().getX();
+        int y = wordLocation.getCoordinates().getY();
         int xMove = wordLocation.getDirection().getXMove();
         int yMove = wordLocation.getDirection().getYMove();
 
@@ -57,7 +57,7 @@ public class Grid {
         return lettersNotUsed;
     }
 
-    public Iterator<String> getLineIterator(Direction direction) {
+    public Iterator<GridLine> getLineIteratorByDirection(Direction direction) {
         switch (direction) {
             case TOP_TO_BOTTOM:
                 return new TopToBottomIterator(this);

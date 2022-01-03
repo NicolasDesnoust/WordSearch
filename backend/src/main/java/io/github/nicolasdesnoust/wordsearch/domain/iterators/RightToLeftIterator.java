@@ -3,27 +3,35 @@ package io.github.nicolasdesnoust.wordsearch.domain.iterators;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import io.github.nicolasdesnoust.wordsearch.domain.Coordinates;
+import io.github.nicolasdesnoust.wordsearch.domain.Direction;
 import io.github.nicolasdesnoust.wordsearch.domain.Grid;
+import io.github.nicolasdesnoust.wordsearch.domain.GridLine;
 
-public class RightToLeftIterator implements Iterator<String> {
+public class RightToLeftIterator implements Iterator<GridLine> {
 
     private final Grid grid;
-    private int currentLineIndex;
+    private int currentRowIndex;
 
     public RightToLeftIterator(Grid grid) {
         this.grid = grid;
-        this.currentLineIndex = 0;
+        this.currentRowIndex = 0;
     }
 
     @Override
     public boolean hasNext() {
-        return currentLineIndex < grid.getLetters().length;
+        return currentRowIndex < grid.getLetters().length;
     }
 
     @Override
-    public String next() {
+    public GridLine next() {
         if (hasNext()) {
-            return reverse(String.valueOf(grid.getLetters()[currentLineIndex++]));
+            String row = reverse(String.valueOf(grid.getLetters()[currentRowIndex]));
+            Coordinates firstCellCoordinates = new Coordinates(grid.getWidth() - 1, currentRowIndex);
+
+            currentRowIndex++;
+
+            return new GridLine(row, Direction.RIGHT_TO_LEFT, firstCellCoordinates);
         } else {
             throw new NoSuchElementException();
         }

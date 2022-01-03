@@ -5,7 +5,6 @@ import lombok.Value;
 @Value
 public class WordLocation {
     String word;
-    int x;
-    int y;
+    Coordinates coordinates;
     Direction direction;
 }

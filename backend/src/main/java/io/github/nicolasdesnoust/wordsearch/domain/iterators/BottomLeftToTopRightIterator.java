@@ -3,9 +3,12 @@ package io.github.nicolasdesnoust.wordsearch.domain.iterators;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import io.github.nicolasdesnoust.wordsearch.domain.Coordinates;
+import io.github.nicolasdesnoust.wordsearch.domain.Direction;
 import io.github.nicolasdesnoust.wordsearch.domain.Grid;
+import io.github.nicolasdesnoust.wordsearch.domain.GridLine;
 
-public class BottomLeftToTopRightIterator implements Iterator<String> {
+public class BottomLeftToTopRightIterator implements Iterator<GridLine> {
 
     private final Grid grid;
     private int diagonalIndex;
@@ -21,18 +24,24 @@ public class BottomLeftToTopRightIterator implements Iterator<String> {
     }
 
     @Override
-    public String next() {
+    public GridLine next() {
         if (hasNext()) {
-            String currentline = "";
+            String diagonal = "";
             for (int j = 0; j <= diagonalIndex; j++) {
                 int i = diagonalIndex - j;
                 if (i < grid.getHeight() && j < grid.getWidth()) {
-                    currentline += grid.getLetters()[i][j];
+                    diagonal += grid.getLetters()[i][j];
                 }
             }
+
+            Coordinates firstCellCoordinates = new Coordinates(
+                    diagonalIndex < grid.getHeight() ? 0 : diagonalIndex - grid.getHeight() + 1,
+                    diagonalIndex < grid.getHeight() ? diagonalIndex : grid.getHeight() - 1
+            );
+
             diagonalIndex++;
 
-            return currentline;
+            return new GridLine(diagonal, Direction.BOTTOM_LEFT_TO_TOP_RIGHT, firstCellCoordinates);
         } else {
             throw new NoSuchElementException();
         }

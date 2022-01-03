@@ -4,7 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
+import io.github.nicolasdesnoust.wordsearch.domain.Coordinates;
+import io.github.nicolasdesnoust.wordsearch.domain.Direction;
 import io.github.nicolasdesnoust.wordsearch.domain.Grid;
+import io.github.nicolasdesnoust.wordsearch.domain.GridLine;
 
 class TopToBottomIteratorUnitTest {
 
@@ -20,6 +23,9 @@ class TopToBottomIteratorUnitTest {
         var underTest = new TopToBottomIterator(grid);
 
         assertThat(underTest).toIterable()
-                .containsExactly("AFIS", "UERD");
+        .containsExactly(
+                new GridLine("AFIS", Direction.TOP_TO_BOTTOM, new Coordinates(0, 0)),
+                new GridLine("UERD", Direction.TOP_TO_BOTTOM, new Coordinates(1, 0))
+        );
     }
 }
