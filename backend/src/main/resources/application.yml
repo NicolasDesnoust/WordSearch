@@ -1,4 +1,6 @@
 spring:
+  jackson:
+    default-property-inclusion: non_null
   output:
     ansi:
       enabled: ALWAYS
@@ -11,3 +13,7 @@ word-search:
     allowed-headers: "*"
     allowed-methods: GET,POST,HEAD,OPTIONS,PUT,DELETE
     allowed-origins: "http://localhost:4200"
+  errors:
+    internal-server-error:
+      title: Erreur interne du serveur
+      detail: No details available.
