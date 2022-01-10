@@ -1,13 +1,14 @@
 package io.github.nicolasdesnoust.wordsearch.solver.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import io.github.nicolasdesnoust.wordsearch.solver.domain.GridFactory;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.NaiveWordFinder;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.WordsFactory;
 import io.github.nicolasdesnoust.wordsearch.solver.usecases.SolveWordSearchUseCase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import javax.validation.Validator;
 
 @Configuration
 public class SolverApplicationContext {
@@ -16,12 +17,14 @@ public class SolverApplicationContext {
     public SolveWordSearchUseCase solveWordSearchUseCase(
             @Autowired GridFactory gridFactory,
             @Autowired WordsFactory wordsFactory,
-            @Autowired NaiveWordFinder wordFindingFacade
+            @Autowired NaiveWordFinder wordFindingFacade,
+            @Autowired Validator validator
     ) {
         return new SolveWordSearchUseCase(
-            gridFactory, 
-            wordsFactory, 
-            wordFindingFacade
+                gridFactory,
+                wordsFactory,
+                wordFindingFacade,
+                validator
         );
     }
 

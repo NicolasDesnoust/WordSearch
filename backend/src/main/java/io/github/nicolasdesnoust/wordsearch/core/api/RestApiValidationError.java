@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.ConstraintViolation;
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -39,5 +41,15 @@ public class RestApiValidationError implements RestApiSubError {
 	)
 	private String message;
 
+	public static <T> RestApiValidationError fromConstraintViolation(
+			ConstraintViolation<T> constraintViolation
+	) {
+		return new RestApiValidationError(
+				constraintViolation.getRootBeanClass().getSimpleName(),
+				constraintViolation.getPropertyPath().toString(),
+				constraintViolation.getInvalidValue(),
+				constraintViolation.getMessage()
+		);
+	}
 }
 

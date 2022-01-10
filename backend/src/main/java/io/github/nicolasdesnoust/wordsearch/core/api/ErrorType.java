@@ -1,11 +1,13 @@
 package io.github.nicolasdesnoust.wordsearch.core.api;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+
 import lombok.Getter;
 
 public enum ErrorType {
 
-    INTERNAL_ERROR ("InternalError");
+    INTERNAL_ERROR ("InternalError"),
+    CONSTRAINT_VIOLATION ("ConstraintViolation");
 
     @Getter
     @JsonValue

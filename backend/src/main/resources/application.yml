@@ -17,3 +17,5 @@ word-search:
     internal-server-error:
       title: Erreur interne du serveur
       detail: No details available.
+    constraint-violation:
+      title: Erreur de validation
