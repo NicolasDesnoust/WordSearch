@@ -1,9 +1,6 @@
 package io.github.nicolasdesnoust.wordsearch.solver.usecases;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
+import io.github.nicolasdesnoust.wordsearch.core.usecases.LogUseCaseExecution;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.Grid;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.GridFactory;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.WordFinder;
@@ -13,15 +10,16 @@ import io.github.nicolasdesnoust.wordsearch.solver.usecases.SolveWordSearchUseCa
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-@Slf4j
 @RequiredArgsConstructor
 public class SolveWordSearchUseCase {
 
@@ -30,6 +28,7 @@ public class SolveWordSearchUseCase {
     private final WordFinder wordFinder;
     private final Validator validator;
 
+    @LogUseCaseExecution
     public SolveWordSearchResponse solveWordSearch(SolveWordSearchRequest request) {
         validate(request);
 
@@ -39,7 +38,6 @@ public class SolveWordSearchUseCase {
         List<WordLocation> wordLocations = wordFinder.findWords(grid, words);
 
         wordLocations.forEach(grid::markLettersAsUsed);
-        wordLocations.forEach(wordLocation -> log.info("A word was found : {}.", wordLocation));
 
         return SolveWordSearchResponse.builder()
                 .withInputGrid(grid.getLetters())

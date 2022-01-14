@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -43,7 +42,7 @@ public class RestApiError implements Serializable {
             required = true
     )
     @Builder.Default
-    private int status = HttpStatus.INTERNAL_SERVER_ERROR.value();
+    private int status = 500;
 
     @Schema(
             description = "Type de l'erreur, qui permet de mieux distinguer programmatiquement les erreurs qui partagent un même statut HTTP.",

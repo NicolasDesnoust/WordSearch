@@ -1,10 +1,11 @@
-package io.github.nicolasdesnoust.wordsearch;
+package io.github.nicolasdesnoust.wordsearch.architecture;
 
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
-import io.github.nicolasdesnoust.wordsearch.Layers.TechnicalLayer;
+import io.github.nicolasdesnoust.wordsearch.WordSearchApplication;
+import io.github.nicolasdesnoust.wordsearch.architecture.Layers.TechnicalLayer;
 
 import static com.tngtech.archunit.base.DescribedPredicate.alwaysTrue;
 import static com.tngtech.archunit.base.DescribedPredicate.not;
@@ -29,7 +30,8 @@ class TechnicalLayersTest {
                     TechnicalLayer.USE_CASES.getAbsolutePath(),
                     TechnicalLayer.DOMAIN.getAbsolutePath(),
                     TechnicalLayer.CONFIGURATION.getAbsolutePath(),
-                    TechnicalLayer.UTIL.getAbsolutePath()
+                    TechnicalLayer.UTIL.getAbsolutePath(),
+                    TechnicalLayer.AOP.getAbsolutePath()
             );
 
     @ArchTest
@@ -37,7 +39,8 @@ class TechnicalLayersTest {
             .that(are(not(equivalentTo(WordSearchApplication.class))))
             .and().resideOutsideOfPackages(
                     TechnicalLayer.API.getAbsolutePath(),
-                    TechnicalLayer.CONFIGURATION.getAbsolutePath()
+                    TechnicalLayer.CONFIGURATION.getAbsolutePath(),
+                    TechnicalLayer.AOP.getAbsolutePath()
             )
             .should().dependOnClassesThat()
             .resideInAnyPackage("org.springframework..");
@@ -58,11 +61,15 @@ class TechnicalLayersTest {
             .layer(TechnicalLayer.DOMAIN.getName()).definedBy(TechnicalLayer.DOMAIN.getAbsolutePath())
             .layer(TechnicalLayer.CONFIGURATION.getName()).definedBy(TechnicalLayer.CONFIGURATION.getAbsolutePath())
             .layer(TechnicalLayer.UTIL.getName()).definedBy(TechnicalLayer.UTIL.getAbsolutePath())
+            .layer(TechnicalLayer.AOP.getName()).definedBy(TechnicalLayer.AOP.getAbsolutePath())
 
-            .whereLayer(TechnicalLayer.API.getName()).mayNotBeAccessedByAnyLayer()
+            .whereLayer(TechnicalLayer.API.getName()).mayOnlyBeAccessedByLayers(
+                    TechnicalLayer.AOP.getName()
+            )
             .whereLayer(TechnicalLayer.USE_CASES.getName()).mayOnlyBeAccessedByLayers(
                     TechnicalLayer.API.getName(),
-                    TechnicalLayer.CONFIGURATION.getName()
+                    TechnicalLayer.CONFIGURATION.getName(),
+                    TechnicalLayer.AOP.getName()
             )
             .whereLayer(TechnicalLayer.DOMAIN.getName()).mayOnlyBeAccessedByLayers(
                     TechnicalLayer.USE_CASES.getName(),
@@ -74,6 +81,7 @@ class TechnicalLayersTest {
                     TechnicalLayer.USE_CASES.getName(),
                     TechnicalLayer.DOMAIN.getName()
             )
+            .whereLayer(TechnicalLayer.AOP.getName()).mayNotBeAccessedByAnyLayer()
 
             .ignoreDependency(alwaysTrue(), assignableTo(RuntimeException.class))
             .because("RuntimeExceptions are allowed to bubble-up");

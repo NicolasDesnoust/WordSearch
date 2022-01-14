@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+    </appender>
+
+    <springProfile name="staging">
+        <logger name="io.github.nicolasdesnoust.wordsearch" level="INFO" additivity="false">
+            <appender-ref ref="consoleAppender"/>
+        </logger>
+
+        <root level="INFO">
+            <appender-ref ref="consoleAppender"/>
+            com.tngtech.archunit
+        </root>
+    </springProfile>
+
+    <springProfile name="!staging">
+        <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    </springProfile>
+
+</configuration>

@@ -1,4 +1,4 @@
-package io.github.nicolasdesnoust.wordsearch;
+package io.github.nicolasdesnoust.wordsearch.architecture;
 
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;

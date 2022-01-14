@@ -1,10 +1,11 @@
-package io.github.nicolasdesnoust.wordsearch;
+package io.github.nicolasdesnoust.wordsearch.architecture;
 
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
-import io.github.nicolasdesnoust.wordsearch.Layers.FeatureLayer;
+import io.github.nicolasdesnoust.wordsearch.WordSearchApplication;
+import io.github.nicolasdesnoust.wordsearch.architecture.Layers.FeatureLayer;
 
 import static com.tngtech.archunit.base.DescribedPredicate.not;
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.equivalentTo;

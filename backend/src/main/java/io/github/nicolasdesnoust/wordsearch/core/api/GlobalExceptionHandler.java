@@ -21,8 +21,9 @@ public class GlobalExceptionHandler {
 
     private final Environment env;
 
+    @LogRestApiError
     @ExceptionHandler(Exception.class)
-    public final ResponseEntity<RestApiError> handleAllExceptions(
+    public ResponseEntity<RestApiError> handleAllExceptions(
             Exception exception,
             HttpServletRequest request
     ) {
@@ -39,6 +40,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(status).body(apiError);
     }
 
+    @LogRestApiError
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<RestApiError> handleConstraintViolationException(
             ConstraintViolationException exception,

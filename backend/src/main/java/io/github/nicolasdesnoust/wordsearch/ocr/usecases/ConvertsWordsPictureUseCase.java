@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.OCRService;
+import io.github.nicolasdesnoust.wordsearch.core.usecases.LogUseCaseExecution;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.WordsFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
@@ -14,6 +15,7 @@ public class ConvertsWordsPictureUseCase {
     private final OCRService ocr;
     private final WordsFactory wordsFactory;
 
+    @LogUseCaseExecution
     public ConvertsWordsPictureResponse convertsWordsPicture(ConvertsWordsPictureRequest request) {
         String convertedPicture = ocr.convertsPicture(request.getWordsPicture());
         List<String> words = wordsFactory.createFrom(convertedPicture);

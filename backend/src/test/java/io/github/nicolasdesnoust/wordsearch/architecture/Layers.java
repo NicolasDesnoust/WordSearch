@@ -1,4 +1,4 @@
-package io.github.nicolasdesnoust.wordsearch;
+package io.github.nicolasdesnoust.wordsearch.architecture;
 
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
@@ -31,7 +31,8 @@ public class Layers {
         USE_CASES("usecases"),
         DOMAIN("domain"),
         CONFIGURATION("configuration"),
-        UTIL("util");
+        UTIL("util"),
+        AOP("aop");
 
         private final String name;
         private final String absolutePath;
