@@ -7,10 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import io.github.nicolasdesnoust.wordsearch.core.api.RestApiError.RestApiSubError;
 import lombok.RequiredArgsConstructor;
@@ -59,6 +61,28 @@ public class GlobalExceptionHandler {
                 .withDetail(exception.getMessage())
                 .withPath(request.getRequestURI())
                 .withSubErrors(subErrors)
+                .build();
+
+        return ResponseEntity.status(status).body(apiError);
+    }
+
+    @LogRestApiError
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<RestApiError> handleMaxUploadSizeExceededException(
+            MaxUploadSizeExceededException exception,
+            HttpServletRequest request
+    ) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+
+        RestApiError apiError = RestApiError.builder()
+                .withStatus(status.value())
+                .withType(ErrorType.MAX_UPLOAD_SIZE_EXCEEDED)
+                .withTitle(env.getProperty("word-search.errors.max-upload-size-exceeded.title"))
+                .withDetail(String.format(
+                        env.getProperty("word-search.errors.max-upload-size-exceeded.detail"),
+                        request.getHeader(HttpHeaders.CONTENT_LENGTH)
+                ))
+                .withPath(request.getRequestURI())
                 .build();
 
         return ResponseEntity.status(status).body(apiError);

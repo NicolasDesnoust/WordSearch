@@ -3,8 +3,8 @@ package io.github.nicolasdesnoust.wordsearch.ocr.usecases;
 import java.io.File;
 import java.util.List;
 
-import io.github.nicolasdesnoust.wordsearch.ocr.domain.OCRService;
 import io.github.nicolasdesnoust.wordsearch.core.usecases.LogUseCaseExecution;
+import io.github.nicolasdesnoust.wordsearch.ocr.domain.OcrService;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.WordsFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
@@ -12,7 +12,7 @@ import lombok.Value;
 @RequiredArgsConstructor
 public class ConvertsWordsPictureUseCase {
 
-    private final OCRService ocr;
+    private final OcrService ocr;
     private final WordsFactory wordsFactory;
 
     @LogUseCaseExecution

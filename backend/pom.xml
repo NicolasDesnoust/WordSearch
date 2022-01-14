@@ -19,6 +19,7 @@
 		<springdoc.version>1.6.4</springdoc.version>
 		<archunit.version>0.22.0</archunit.version>
 		<logstash-logback-encoder.version>7.0.1</logstash-logback-encoder.version>
+		<tesseract-platform.version>4.1.1-1.5.6</tesseract-platform.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -60,9 +61,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.bytedeco.javacpp-presets</groupId>
+			<groupId>org.bytedeco</groupId>
 			<artifactId>tesseract-platform</artifactId>
-			<version>4.0.0-1.4.4</version>
+			<version>${tesseract-platform.version}</version>
 		</dependency>
 
 		<dependency>

@@ -3,15 +3,15 @@ package io.github.nicolasdesnoust.wordsearch.ocr.usecases;
 import java.io.File;
 
 import io.github.nicolasdesnoust.wordsearch.core.usecases.LogUseCaseExecution;
+import io.github.nicolasdesnoust.wordsearch.ocr.domain.OcrService;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.GridFactory;
-import io.github.nicolasdesnoust.wordsearch.ocr.domain.OCRService;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
 @RequiredArgsConstructor
 public class ConvertsGridPictureUseCase {
 
-    private final OCRService ocr;
+    private final OcrService ocr;
     private final GridFactory gridFactory;
 
     @LogUseCaseExecution

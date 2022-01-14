@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+
+  backend:
+    container_name: wordsearch-backend
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      PORT: 8080
+    ports:
+      - "8080:8080"

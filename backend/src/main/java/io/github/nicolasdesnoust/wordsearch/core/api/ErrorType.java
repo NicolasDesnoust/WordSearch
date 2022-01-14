@@ -7,7 +7,10 @@ import lombok.Getter;
 public enum ErrorType {
 
     INTERNAL_ERROR ("InternalError"),
-    CONSTRAINT_VIOLATION ("ConstraintViolation");
+    CONSTRAINT_VIOLATION ("ConstraintViolation"),
+    MAX_UPLOAD_SIZE_EXCEEDED("MaxUploadSizeExceeded"),
+    OPTICAL_CHARACTER_RECOGNITION_ERROR("OpticalCharacterRecognitionError"),
+    UNSUPPORTED_FORMAT("UnsupportedFormat");
 
     @Getter
     @JsonValue
