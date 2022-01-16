@@ -1,7 +1,11 @@
 package io.github.nicolasdesnoust.wordsearch.ocr.api;
 
-import javax.servlet.http.HttpServletRequest;
-
+import io.github.nicolasdesnoust.wordsearch.core.api.ErrorType;
+import io.github.nicolasdesnoust.wordsearch.core.api.LogRestApiError;
+import io.github.nicolasdesnoust.wordsearch.core.api.RestApiError;
+import io.github.nicolasdesnoust.wordsearch.ocr.domain.OpticalCharacterRecognition.OcrException;
+import io.github.nicolasdesnoust.wordsearch.ocr.domain.impl.OpticalCharacterRecognitionImpl.UnsupportedFormatException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
@@ -10,12 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import io.github.nicolasdesnoust.wordsearch.core.api.ErrorType;
-import io.github.nicolasdesnoust.wordsearch.core.api.LogRestApiError;
-import io.github.nicolasdesnoust.wordsearch.core.api.RestApiError;
-import io.github.nicolasdesnoust.wordsearch.ocr.domain.OcrService.OcrException;
-import io.github.nicolasdesnoust.wordsearch.ocr.domain.TesseractOcrService.UnsupportedFormatException;
-import lombok.RequiredArgsConstructor;
+import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -44,7 +43,7 @@ public class OcrExceptionHandler {
     }
 
     @LogRestApiError
-    @ExceptionHandler(UnsupportedFormatException .class)
+    @ExceptionHandler(UnsupportedFormatException.class)
     public ResponseEntity<RestApiError> handleUnsupportedFormatException(
             UnsupportedFormatException exception,
             HttpServletRequest request

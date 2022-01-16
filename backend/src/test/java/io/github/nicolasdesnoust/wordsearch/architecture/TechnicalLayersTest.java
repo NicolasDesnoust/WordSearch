@@ -6,6 +6,7 @@ import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 import io.github.nicolasdesnoust.wordsearch.WordSearchApplication;
 import io.github.nicolasdesnoust.wordsearch.architecture.Layers.TechnicalLayer;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import static com.tngtech.archunit.base.DescribedPredicate.alwaysTrue;
 import static com.tngtech.archunit.base.DescribedPredicate.not;
@@ -40,7 +41,8 @@ class TechnicalLayersTest {
             .and().resideOutsideOfPackages(
                     TechnicalLayer.API.getAbsolutePath(),
                     TechnicalLayer.CONFIGURATION.getAbsolutePath(),
-                    TechnicalLayer.AOP.getAbsolutePath()
+                    TechnicalLayer.AOP.getAbsolutePath(),
+                    TechnicalLayer.UTIL.getAbsolutePath()
             )
             .should().dependOnClassesThat()
             .resideInAnyPackage("org.springframework..");
@@ -79,10 +81,21 @@ class TechnicalLayersTest {
             .whereLayer(TechnicalLayer.UTIL.getName()).mayOnlyBeAccessedByLayers(
                     TechnicalLayer.API.getName(),
                     TechnicalLayer.USE_CASES.getName(),
-                    TechnicalLayer.DOMAIN.getName()
+                    TechnicalLayer.DOMAIN.getName(),
+                    TechnicalLayer.CONFIGURATION.getName()
             )
             .whereLayer(TechnicalLayer.AOP.getName()).mayNotBeAccessedByAnyLayer()
 
             .ignoreDependency(alwaysTrue(), assignableTo(RuntimeException.class))
             .because("RuntimeExceptions are allowed to bubble-up");
+
+    @ArchTest
+    static ArchRule use_abstractions_instead_of_concretions = noClasses()
+            .that().resideOutsideOfPackages(
+                    TechnicalLayer.CONFIGURATION.getAbsolutePath(),
+                    "..impl.."
+            )
+            .and().areNotAnnotatedWith(ControllerAdvice.class)
+            .should().dependOnClassesThat()
+            .resideInAnyPackage("..impl..");
 }

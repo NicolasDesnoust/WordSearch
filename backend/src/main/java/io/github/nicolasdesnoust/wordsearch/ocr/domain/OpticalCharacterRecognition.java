@@ -2,9 +2,12 @@ package io.github.nicolasdesnoust.wordsearch.ocr.domain;
 
 import java.io.File;
 
-public interface OcrService {
+public interface OpticalCharacterRecognition {
 
-    String convertsPicture(File file);
+    /**
+     * Extracts text from a given picture.
+     */
+    OcrResult convertsPicture(File picture, OcrOptions options);
 
     class OcrException extends RuntimeException {
 
