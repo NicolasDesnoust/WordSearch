@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Welcome to Component B! :: WordSearch Docs</title>
+    <title>Introduction à la documentation de Wordsearch :: WordSearch Docs</title>
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <script>var uiRootPath = '../../_'</script>
@@ -21,28 +21,7 @@
     </div>
     <div id="topbar-nav" class="navbar-menu">
       <div class="navbar-end">
-        <a class="navbar-item" href="#">Home</a>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Products</a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="#">Product A</a>
-            <a class="navbar-item" href="#">Product B</a>
-            <a class="navbar-item" href="#">Product C</a>
-          </div>
-        </div>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Services</a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="#">Service A</a>
-            <a class="navbar-item" href="#">Service B</a>
-            <a class="navbar-item" href="#">Service C</a>
-          </div>
-        </div>
-        <div class="navbar-item">
-          <span class="control">
-            <a class="button is-primary" href="#">Download</a>
-          </span>
-        </div>
+        <a class="navbar-item" href="../../api-rest">API Rest</a>
       </div>
     </div>
   </nav>
@@ -58,7 +37,7 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="index.html">Welcome</a>
+    <a class="nav-link" href="index.html">Introduction</a>
   </li>
 </ul>
   </li>
@@ -66,13 +45,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="user-manual/index.html">Manuel utilisateur</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="api-rest/overview.html">API Rest</a>
   </li>
 </ul>
   </li>
@@ -205,68 +177,34 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">WordSearch Docs</a></li>
-    <li><a href="index.html">Welcome</a></li>
+    <li><a href="index.html">Introduction</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/NicolasDesnoust/WordSearch/edit/main/docs/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/NicolasDesnoust/wordsearch/edit/main/docs/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Welcome to Component B!</h1>
+<h1 class="page">Introduction à la documentation de Wordsearch</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This is the automatic start page for version <strong>dev</strong> of Component B.</p>
+<p>Wordsearch est une application web qui permet de résoudre des grilles de mots-mêlés.
+Cette application a principalement été conçue pour expérimenter les technologies open source capables d&#8217;effectuer de la <a href="https://fr.wikipedia.org/wiki/Reconnaissance_optique_de_caract%C3%A8res">reconnaissance optique de caractères</a> et d&#8217;évaluer leur viabilité en production.
+L&#8217;application est développée selon une variante de la <a href="https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html">clean architecture</a>, afin de maximiser la réutilisabilité de la logique implémentée.</p>
 </div>
 <div class="paragraph">
-<p>Component B is one of two documentation components in the Antora Demo.
-The other docs component, Component A, can be accessed via the component selector menu (aka component drawer) at the bottom of the menu on the left side of the page.</p>
+<p>Cette documentation n&#8217;a pas pour vocation d&#8217;expliquer comment utiliser l&#8217;application mais plutôt de quelle manière elle a été conçue, pour partager mes choix et expérimentations dans une optique open source.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_page_source"><a class="anchor" href="#_page_source"></a>Page source</h2>
+<h2 id="_feedback"><a class="anchor" href="#_feedback"></a>Feedback</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This page is sourced from the AsciiDoc file named <em class="path">index.adoc</em> that is located at <em class="path">demo-component-b/docs/modules/ROOT/pages</em>.</p>
-</div>
-<div class="sect2">
-<h3 id="_why_is_this_the_home_page_of_component_b"><a class="anchor" href="#_why_is_this_the_home_page_of_component_b"></a>Why is this the home page of Component B?</h3>
-<div class="paragraph">
-<p>This page is automatically used as the start page of Component B because it is stored in the ROOT module and named <em class="path">index.adoc</em>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_why_is_this_the_home_page_of_the_antora_demo_site"><a class="anchor" href="#_why_is_this_the_home_page_of_the_antora_demo_site"></a>Why is this the home page of the Antora Demo site?</h3>
-<div class="paragraph">
-<p>This page is used as the home page for the Antora Demo because it is assigned as the site <code>start_page</code> in the Demo site&#8217;s playbook file <em class="path">site.yml</em>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_cross_reference_syntax_to_target_this_page"><a class="anchor" href="#_cross_reference_syntax_to_target_this_page"></a>Cross reference syntax to target this page</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To create a cross reference <strong>to this page from another page in the ROOT module of Component B</strong>, the xref syntax would be <code>xref:index.adoc[]</code>.</p>
-</div>
-<div class="paragraph">
-<p>To create a cross reference <strong>to this page from a page in Module One of Component B</strong>, the xref syntax would be <code>xref:ROOT:index.adoc[]</code>.</p>
-</div>
-<div class="sect2">
-<h3 id="_always_target_the_latest_version_of_this_page"><a class="anchor" href="#_always_target_the_latest_version_of_this_page"></a>Always target the latest version of this page</h3>
-<div class="paragraph">
-<p>To create a cross reference <strong>to the latest version of this page from a page in Component A</strong>, the xref syntax would be <code>xref:component-b::index.adoc[]</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_target_a_specific_version_of_this_page"><a class="anchor" href="#_target_a_specific_version_of_this_page"></a>Target a specific version of this page</h3>
-<div class="paragraph">
-<p>To create a cross reference <strong>to version 1.0 of this page from a page in Component A</strong>, the xref syntax would be <code>xref:1.0@component-b::index.adoc[]</code>.</p>
-</div>
+<p>J&#8217;aimerais beaucoup avoir votre avis sur mon travail. N&#8217;hésitez pas à <a href="https://nicolasdesnoust.github.io/contact">me contacter</a> ! Vous pouvez également signaler un problème ou effectuer une suggestion en créant une issue sur Github.</p>
 </div>
 </div>
 </div>

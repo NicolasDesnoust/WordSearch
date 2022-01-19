@@ -21,28 +21,7 @@
     </div>
     <div id="topbar-nav" class="navbar-menu">
       <div class="navbar-end">
-        <a class="navbar-item" href="#">Home</a>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Products</a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="#">Product A</a>
-            <a class="navbar-item" href="#">Product B</a>
-            <a class="navbar-item" href="#">Product C</a>
-          </div>
-        </div>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Services</a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="#">Service A</a>
-            <a class="navbar-item" href="#">Service B</a>
-            <a class="navbar-item" href="#">Service C</a>
-          </div>
-        </div>
-        <div class="navbar-item">
-          <span class="control">
-            <a class="button is-primary" href="#">Download</a>
-          </span>
-        </div>
+        <a class="navbar-item" href="../../../api-rest">API Rest</a>
       </div>
     </div>
   </nav>
@@ -58,7 +37,7 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../index.html">Welcome</a>
+    <a class="nav-link" href="../index.html">Introduction</a>
   </li>
 </ul>
   </li>
@@ -66,13 +45,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../user-manual/index.html">Manuel utilisateur</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../api-rest/overview.html">API Rest</a>
   </li>
 </ul>
   </li>
@@ -208,7 +180,7 @@
     <li><a href="index.html">Architecture</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/NicolasDesnoust/WordSearch/edit/main/docs/modules/architecture/pages/index.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/NicolasDesnoust/wordsearch/edit/main/docs/modules/architecture/pages/index.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -216,7 +188,41 @@
 </aside>
 <article class="doc">
 <h1 class="page">Architecture</h1>
-
+<div class="paragraph">
+<p>La méthodologie utilisée pour modéliser et documenter l’architecture logicielle du système est le modèle C4 (Context, Container, Component et Code).
+Cette approche permet de représenter le système selon différents niveaux de détail.
+Le contexte du système est présenté en premier, puis sa structure interne.</p>
+</div>
+<div class="paragraph">
+<p>Les sections suivantes montrent le système selon trois niveaux, classés du plus global au plus précis :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Le niveau 1 : le contexte du système</p>
+</li>
+<li>
+<p>Le niveau 2 : les conteneurs du système</p>
+</li>
+<li>
+<p>Le niveau 3 : les composants des conteneurs du système</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Comme vous pouvez le constater, cette méthodologie se base sur plusieurs abstractions (Contexte, Conteneurs, Composants) qui ont un sens différent de celui qu&#8217;on pourrait leur attribuer en temps normal.
+Ainsi, le terme Conteneur n&#8217;est pas relatif à la technologie Docker, tout comme les Composants ne sont pas relatifs à un framework Javascript (Angular, React, etc.).
+Vous pouvez vous référer à la <a href="https://c4model.com/">documentation du modèle C4</a> pour en savoir plus sur la signification de ces abstractions.
+</td>
+</tr>
+</table>
+</div>
 </article>
   </div>
 </main>
