@@ -1,0 +1,11 @@
+= Introduction à la documentation de Wordsearch
+
+Wordsearch est une application web qui permet de résoudre des grilles de mots-mêlés. 
+Cette application a principalement été conçue pour expérimenter les technologies open source capables d'effectuer de la https://fr.wikipedia.org/wiki/Reconnaissance_optique_de_caract%C3%A8res[reconnaissance optique de caractères] et d'évaluer leur viabilité en production. 
+L'application est développée selon une variante de la https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html[clean architecture], afin de maximiser la réutilisabilité de la logique implémentée.
+
+Cette documentation n'a pas pour vocation d'expliquer comment utiliser l'application mais plutôt de quelle manière elle a été conçue, pour partager mes choix et expérimentations dans une optique open source.
+
+== Feedback
+
+J'aimerais beaucoup avoir votre avis sur mon travail. N'hésitez pas à https://nicolasdesnoust.github.io/contact[me contacter] ! Vous pouvez également signaler un problème ou effectuer une suggestion en créant une issue sur Github.

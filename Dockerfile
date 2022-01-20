@@ -32,6 +32,41 @@ FROM base as test
 RUN ./mvnw verify
 
 ####################################################
+### Build-docs Target
+####################################################
+FROM test as build-docs
+WORKDIR /workspace/docs
+
+# Install Node & Npm
+ENV NODE_VERSION=16.13.0
+RUN apt install -y curl
+RUN mkdir /usr/local/.nvm
+ENV NVM_DIR=/usr/local/.nvm
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash \
+    && . $NVM_DIR/nvm.sh
+RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION}
+RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
+RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
+ENV PATH="${NVM_DIR}/versions/node/v${NODE_VERSION}/bin/:${PATH}"
+RUN node --version
+RUN npm --version
+
+RUN npm i -g @antora/cli@2.3 @antora/site-generator-default@2.3
+RUN npm i -g redoc-cli@0.13.2
+
+COPY docs .
+COPY .git /workspace/.git
+
+RUN antora antora-playbook.yml
+RUN redoc-cli bundle -o build/site/api-rest.html /workspace/backend/target/openapi.json
+
+####################################################
+### Export-docs Target
+####################################################
+FROM scratch AS export-docs
+COPY --from=build-docs /workspace/docs/build/site /
+
+####################################################
 ### App Target (default)
 ####################################################
 FROM adoptopenjdk/openjdk11:jre-11.0.11_9-alpine

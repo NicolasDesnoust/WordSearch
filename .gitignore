@@ -1,2 +1,7 @@
 
 .vscode/
+
+docs/build/*
+!docs/build/site
+docs/build/site/*
+!docs/build/site/.gitkeep

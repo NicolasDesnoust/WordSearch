@@ -12,8 +12,8 @@
 	<groupId>io.github.nicolasdesnoust</groupId>
 	<artifactId>wordsearch</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Word Search</name>
-	<description>Demo project for Spring Boot</description>
+	<name>WordSearch</name>
+	<description>Application web qui permet de résoudre le jeu des mots-mêlés.</description>
 	<properties>
 		<java.version>11</java.version>
 		<springdoc.version>1.6.4</springdoc.version>
@@ -116,7 +116,39 @@
 						</exclude>
 					</excludes>
 				</configuration>
+				<executions>
+					<execution>
+						<id>pre-integration-test</id>
+						<goals>
+							<goal>start</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>post-integration-test</id>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-maven-plugin</artifactId>
+				<version>1.3</version>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<apiDocsUrl>http://localhost:8080/v3/api-docs</apiDocsUrl>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 

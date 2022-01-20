@@ -11,13 +11,16 @@ spring:
       max-file-size: 5_242_880
       max-request-size: 5_242_880
 word-search:
+  name: @project.name@
+  version: @project.version@
+  description: @project.description@
   cors:
     allowed-headers: "*"
     allowed-methods: GET,POST,HEAD,OPTIONS,PUT,DELETE
     allowed-origins: "http://localhost:4200"
   ocr:
     maximum-duration: 40_000
-    data-path: ${TESSDATA_PREFIX:.}
+    data-path: ${TESSDATA_PREFIX}
   errors:
     internal-server-error:
       title: Erreur interne du serveur
