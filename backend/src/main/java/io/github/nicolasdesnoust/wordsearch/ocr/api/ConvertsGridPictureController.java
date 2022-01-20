@@ -18,11 +18,12 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/grids")
-public class ConvertsGridPictureController {
+public class ConvertsGridPictureController implements ConvertsGridPictureSpecification {
 
     private final ConvertsGridPictureUseCase useCase;
     private final TemporaryFile temporaryFile;
 
+    @Override
     @PostMapping(path = "/_converts", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ConvertsGridPictureResponse> convertsGridPicture(@RequestParam MultipartFile gridPicture) {
         File file = this.temporaryFile.write(gridPicture).asFile();

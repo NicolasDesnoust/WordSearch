@@ -14,10 +14,11 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/grids")
-public class SolveWordSearchController {
+public class SolveWordSearchController implements SolveWordSearchSpecification {
 
     private final SolveWordSearchUseCase useCase;
 
+    @Override
     @PostMapping("/_solve")
     public ResponseEntity<SolveWordSearchResponse> solveWordSearch(@RequestBody SolveWordSearchRequest request) {
         var response = useCase.solveWordSearch(request);

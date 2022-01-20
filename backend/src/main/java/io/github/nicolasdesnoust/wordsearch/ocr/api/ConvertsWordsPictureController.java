@@ -18,11 +18,12 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/words")
-public class ConvertsWordsPictureController {
+public class ConvertsWordsPictureController implements ConvertsWordsPictureSpecification {
 
     private final ConvertsWordsPictureUseCase useCase;
     private final TemporaryFile temporaryFile;
 
+    @Override
     @PostMapping(path = "/_converts", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ConvertsWordsPictureResponse> convertsWordsPicture(@RequestParam MultipartFile wordsPicture) {
         File file = this.temporaryFile.write(wordsPicture).asFile();
