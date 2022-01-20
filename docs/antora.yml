@@ -3,3 +3,4 @@ title: WordSearch Docs
 version: dev
 nav:
 - modules/ROOT/nav.adoc
+- modules/setup-development/nav.adoc

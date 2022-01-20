@@ -1,0 +1,68 @@
+= Environnement de développement
+
+== Prérequis
+
+Des outils doivent être préalablement installés avant de contribuer à ce projet.
+
+Vous devez installer&nbsp;:
+
+- https://docs.docker.com/desktop/[Docker]
+- https://stackoverflow.com/a/32127632[make]
+- https://nodejs.org/[Node.js] qui inclut https://www.npmjs.com/get-npm[Node Package Manager]
+- Le https://angular.io/cli[cli d'Angular], en exécutant la commande suivante dans un terminal&nbsp;:
+```bash
+npm install -g @angular/cli
+```
+
+Vous aurez aussi besoin d'activer le builder BuildKit de Docker. Vous pouvez le faire en définissant la variable `DOCKER_BUILDKIT=1` dans votre environnement.
+
+== Lancer l'application
+
+Pour lancer la partie backend de l'application, exécutez les commandes suivantes dans un terminal&nbsp;:
+
+[source,shell]
+----
+cd backend
+./mvnw spring-boot:run
+----
+
+Pour lancer la partie frontend de l'application, exécutez les commandes suivantes dans un terminal&nbsp;:
+
+[source,shell]
+----
+cd frontend
+npm run serve
+----
+
+== Tester l'application
+[source,shell]
+make test
+
+== Générer la documentation
+
+La documentation du projet est générée à partir de deux https://fr.wikipedia.org/wiki/Interface_en_ligne_de_commande[CLI]&nbsp;:
+
+- https://redoc.ly/docs/redoc/quickstart/cli/[Redoc], responsable de la documentation de l'API Rest.
+- https://docs.antora.org/antora/2.3/[Antora], responsable de la documentation rédigée manuellement.
+
+Le résultat de la génération (des fichiers statiques HTML, CSS, etc.) est assemblé pour être servi par Github Pages.
+
+NOTE: Les CLIs ne nécessitent pas d'être installés pour générer la documentation. 
+
+Vous pouvez générer la documentation en exécutant la commande suivante dans un terminal&nbsp;:
+
+[source,shell]
+make export-docs
+
+Cette commande va :
+
+1. Build l'application.
+2. Tester l'application.footnote:[L'application est testée lors de la génération de la documentation car c'est lors de cette phase que la spécification OpenApi est générée. Pour plus d'informations voir le plugin https://github.com/springdoc/springdoc-openapi-maven-plugin[springdoc-openapi-maven-plugin].]
+3. Générer la spécification OpenApi (v3) de l'API Rest.
+4. Générer une documentation interactive de l'API Rest à partir de la spécification OpenApi.
+5. Générer une documentation HTML à partir de fichiers asciidoc.
+6. Placer les fichiers statiques générés aux étapes 4. et 5. dans le dossier `docs/build/site`.
+
+Si tout s'est bien passé, vous pourrez consulter la documentation directement dans votre navigateur en ouvrant le fichier `docs/build/site/index.html`.
+
+NOTE: Ce processus peut sembler long au premier abord mais si vous ne travaillez que sur la documentation, les phases précédentes (build, test) ne sont pas réexécutées tant que le code source de l'application n'a pas changé. Générer la documentation prend ainsi moins d'une dizaine de secondes.

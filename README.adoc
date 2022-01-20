@@ -12,3 +12,4 @@ L'application est développée selon une variante de la https://blog.cleancoder.
 Vous pouvez en apprendre plus sur cette application en consultant la documentation en ligne.
 
 - link:{site-url}/api-rest.html[API Rest]
+- link:{docs-url}/setup-development/index.html[Mise en place de l'environnement de développement]
