@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Environnement de développement :: WordSearch Docs</title>
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">WordSearch Docs</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../../api-rest.html">Documentation de l'API Rest</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="wordsearch-docs" data-version="dev">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">WordSearch Docs</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Introduction</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="index.html">Environnement de développement</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../architecture/index.html">Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/system-context.html">Contexte du Système</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/system-containers.html">Conteneurs du Système</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/backend-components.html">Composants du Backend</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/frontend-components.html">Composants du Frontend</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">WordSearch Docs</span>
+    <span class="version">dev</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">WordSearch Docs</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">dev</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">WordSearch Docs</a></li>
+    <li><a href="index.html">Environnement de développement</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="file:///workspace//docs/modules/setup-development/pages/index.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Environnement de développement</h1>
+<div class="sect1">
+<h2 id="_prérequis"><a class="anchor" href="#_prérequis"></a>Prérequis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Des outils doivent être préalablement installés avant de contribuer à ce projet.</p>
+</div>
+<div class="paragraph">
+<p>Vous devez installer&nbsp;:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.docker.com/desktop/">Docker</a></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/a/32127632">make</a></p>
+</li>
+<li>
+<p><a href="https://nodejs.org/">Node.js</a> qui inclut <a href="https://www.npmjs.com/get-npm">Node Package Manager</a></p>
+</li>
+<li>
+<p>Le <a href="https://angular.io/cli">cli d&#8217;Angular</a>, en exécutant la commande suivante dans un terminal&nbsp;:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">npm install -g @angular/cli</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Vous aurez aussi besoin d&#8217;activer le builder BuildKit de Docker. Vous pouvez le faire en définissant la variable <code>DOCKER_BUILDKIT=1</code> dans votre environnement.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lancer_lapplication"><a class="anchor" href="#_lancer_lapplication"></a>Lancer l&#8217;application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Pour lancer la partie backend de l&#8217;application, exécutez les commandes suivantes dans un terminal&nbsp;:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">cd backend
+./mvnw spring-boot:run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pour lancer la partie frontend de l&#8217;application, exécutez les commandes suivantes dans un terminal&nbsp;:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">cd frontend
+npm run serve</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tester_lapplication"><a class="anchor" href="#_tester_lapplication"></a>Tester l&#8217;application</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">make test</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_générer_la_documentation"><a class="anchor" href="#_générer_la_documentation"></a>Générer la documentation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La documentation du projet est générée à partir de deux <a href="https://fr.wikipedia.org/wiki/Interface_en_ligne_de_commande">CLI</a>&nbsp;:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://redoc.ly/docs/redoc/quickstart/cli/">Redoc</a>, responsable de la documentation de l&#8217;API Rest.</p>
+</li>
+<li>
+<p><a href="https://docs.antora.org/antora/2.3/">Antora</a>, responsable de la documentation rédigée manuellement.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Le résultat de la génération (des fichiers statiques HTML, CSS, etc.) est assemblé pour être servi par Github Pages.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Les CLIs ne nécessitent pas d&#8217;être installés pour générer la documentation.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Vous pouvez générer la documentation en exécutant la commande suivante dans un terminal&nbsp;:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">make export-docs</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Cette commande va :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Build l&#8217;application.</p>
+</li>
+<li>
+<p>Tester l&#8217;application.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+</li>
+<li>
+<p>Générer la spécification OpenApi (v3) de l&#8217;API Rest.</p>
+</li>
+<li>
+<p>Générer une documentation interactive de l&#8217;API Rest à partir de la spécification OpenApi.</p>
+</li>
+<li>
+<p>Générer une documentation HTML à partir de fichiers asciidoc.</p>
+</li>
+<li>
+<p>Placer les fichiers statiques générés aux étapes 4. et 5. dans le dossier <code>docs/build/site</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Si tout s&#8217;est bien passé, vous pourrez consulter la documentation directement dans votre navigateur en ouvrant le fichier <code>docs/build/site/index.html</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Ce processus peut sembler long au premier abord mais si vous ne travaillez que sur la documentation, les phases précédentes (build, test) ne sont pas réexécutées tant que le code source de l&#8217;application n&#8217;a pas changé. Générer la documentation prend ainsi moins d&#8217;une dizaine de secondes.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. L&#8217;application est testée lors de la génération de la documentation car c&#8217;est lors de cette phase que la spécification OpenApi est générée. Pour plus d&#8217;informations voir le plugin <a href="https://github.com/springdoc/springdoc-openapi-maven-plugin">springdoc-openapi-maven-plugin</a>.
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
