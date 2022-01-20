@@ -26,14 +26,13 @@ public abstract class TesseractClient {
     protected TessBaseAPI tesseractInstance;
 
     @PostConstruct
-    private void initializeTesseract() {
-        log.info("Initializing a tesseract instance");
-        
+    private void initializeTesseract() {        
         tesseractInstance = new TessBaseAPI();
 
         String language = configuration.getLanguage();
         String dataPath = configuration.getDataPath();
         
+        log.info("Initializing a tesseract instance with dataPath: '{}' and language: '{}'", dataPath, language);
         int returnCode = tesseractInstance.Init(dataPath, language);
         if (returnCode != 0) {
             throw new OcrException("could not initialize tesseractInstance, error code: " + returnCode);
