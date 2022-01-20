@@ -1,0 +1,3 @@
+= Composants du frontend
+
+NOTE: L'architecture du frontend sera mise-à-jour quand celui-ci sera publié.

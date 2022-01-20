@@ -1,0 +1,5 @@
+= Le contexte du système
+
+Ce diagramme montre le contexte du système, c'est-à-dire les interactions entre le système et des acteurs/systèmes externes.
+
+image::system-context.drawio.svg[Diagramme représentatif du contexte du système]

@@ -1,0 +1,6 @@
+= Les conteneurs du système
+
+Ce diagramme montre à haut niveau l'architecture du système et la façon dont les responsabilités sont réparties.
+Il montre également les principaux choix technologiques et la manière dont les conteneurs communiquent entre eux.
+
+image::system-containers.drawio.svg[Diagramme représentatif des conteneurs du système]

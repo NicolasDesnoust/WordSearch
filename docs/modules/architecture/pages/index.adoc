@@ -1,0 +1,15 @@
+= Architecture
+
+La méthodologie utilisée pour modéliser et documenter l’architecture logicielle du système est le modèle C4 (Context, Container, Component et Code).
+Cette approche permet de représenter le système selon différents niveaux de détail.
+Le contexte du système est présenté en premier, puis sa structure interne.
+
+Les sections suivantes montrent le système selon trois niveaux, classés du plus global au plus précis :
+
+- Le niveau 1 : le contexte du système
+- Le niveau 2 : les conteneurs du système
+- Le niveau 3 : les composants des conteneurs du système
+
+IMPORTANT: Comme vous pouvez le constater, cette méthodologie se base sur plusieurs abstractions (Contexte, Conteneurs, Composants) qui ont un sens différent de celui qu'on pourrait leur attribuer en temps normal.
+Ainsi, le terme Conteneur n'est pas relatif à la technologie Docker, tout comme les Composants ne sont pas relatifs à un framework Javascript (Angular, React, etc.).
+Vous pouvez vous référer à la https://c4model.com/[documentation du modèle C4] pour en savoir plus sur la signification de ces abstractions.

@@ -1,0 +1,5 @@
+= Composants du backend
+
+Ce diagramme montre comment le back-end est organisé en "composants", ce que sont chacun de ces composants, leurs responsabilités et les détails de la technologie/de la mise en œuvre.
+
+image::backend-components.drawio.svg[Diagramme représentatif des composants du backend]
