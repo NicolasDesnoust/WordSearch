@@ -1,0 +1,29 @@
+name: WordSearch Workflow
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  workflow:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_BUILDKIT: "1"
+      DOCS_DIR: "docs/build/site"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run tests
+        run: make test
+
+      - name: Build documentation
+        run: |
+          make export-docs
+          touch ${{ env.DOCS_DIR }}/.nojekyll
+
+      - name: Deploy documentation on Github Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages
+          folder: ${{ env.DOCS_DIR }}
