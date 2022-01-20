@@ -14,10 +14,6 @@ word-search:
   name: @project.name@
   version: @project.version@
   description: @project.description@
-  cors:
-    allowed-headers: "*"
-    allowed-methods: GET,POST,HEAD,OPTIONS,PUT,DELETE
-    allowed-origins: "http://localhost:4200"
   ocr:
     maximum-duration: 40_000
     data-path: ${TESSDATA_PREFIX}
