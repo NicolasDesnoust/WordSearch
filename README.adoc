@@ -3,6 +3,9 @@
 
 = WordSearch
 
+image:https://sonarcloud.io/api/project_badges/measure?project=io.github.nicolasdesnoust.wordsearch.backend&metric=alert_status[link="https://sonarcloud.io/summary/new_code?id=io.github.nicolasdesnoust.wordsearch.backend",title="Quality Gate Status"]
+image:https://sonarcloud.io/api/project_badges/measure?project=io.github.nicolasdesnoust.wordsearch.backend&metric=sqale_rating[link="https://sonarcloud.io/summary/new_code?id=io.github.nicolasdesnoust.wordsearch.backend",title="Maintainability Rating"]
+
 Wordsearch est une application web qui permet de résoudre des grilles de mots-mêlés. 
 Cette application a principalement été conçue pour expérimenter les technologies open source capables d'effectuer de la https://fr.wikipedia.org/wiki/Reconnaissance_optique_de_caract%C3%A8res[reconnaissance optique de caractères] et d'évaluer leur viabilité en production. 
 L'application est développée selon une variante de la https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html[clean architecture], afin de maximiser la réutilisabilité de la logique implémentée.

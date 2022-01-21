@@ -32,6 +32,24 @@ FROM base as test
 RUN ./mvnw verify
 
 ####################################################
+### Sonar-scan Target
+####################################################
+FROM test as sonar-scan
+
+ARG SONAR_PROJECT_KEY
+ARG SONAR_HOST_URL
+ARG SONAR_LOGIN
+ARG SONAR_ORGANIZATION
+
+COPY .git /workspace/.git
+
+RUN ./mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+    -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+    -Dsonar.host.url=${SONAR_HOST_URL} \
+    -Dsonar.login=${SONAR_LOGIN} \
+    -Dsonar.organization=${SONAR_ORGANIZATION}
+
+####################################################
 ### Build-docs Target
 ####################################################
 FROM test as build-docs

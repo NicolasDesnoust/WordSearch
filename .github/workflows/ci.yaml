@@ -13,9 +13,20 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Tells git to fetch all the branches of the project, required by the analysis task
 
       - name: Run tests
         run: make test
+
+      - name: Scan with SonarCloud
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }} # Needed to get PR information, if any
+          SONAR_ORGANIZATION: nicolasdesnoust
+          SONAR_PROJECT_KEY: io.github.nicolasdesnoust.wordsearch.backend
+          SONAR_HOST_URL: https://sonarcloud.io
+          SONAR_LOGIN: ${{ secrets.SONAR_TOKEN_FOR_BACKEND }}
+        run: make sonar-scan
 
       - name: Build documentation
         run: |
