@@ -1,8 +1,8 @@
-all: build
+all: build-app
 
-.PHONY: build
+.PHONY: build-app
 build-app:
-	@docker build .
+	@docker build . -t wordsearch
 
 .PHONY: test
 test:
