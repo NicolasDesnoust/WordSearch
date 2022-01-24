@@ -1,3 +1,5 @@
+# syntax = docker/dockerfile:1.3
+
 ####################################################
 ### Base Target
 ####################################################
@@ -11,7 +13,8 @@ COPY backend/pom.xml ./pom.xml
 COPY backend/tessdata ./tessdata
 
 RUN chmod +x mvnw
-RUN ./mvnw dependency:go-offline
+RUN --mount=type=cache,target=/root/.m2 \
+    ./mvnw dependency:go-offline
 
 COPY backend/src ./src
 
@@ -20,7 +23,8 @@ COPY backend/src ./src
 ####################################################
 FROM base as build
 
-RUN ./mvnw package -DskipTests
+RUN --mount=type=cache,target=/root/.m2 \
+    ./mvnw package -DskipTests
 
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
@@ -29,7 +33,8 @@ RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 ####################################################
 FROM base as test
 
-RUN ./mvnw verify
+RUN --mount=type=cache,target=/root/.m2 \
+    ./mvnw verify
 
 ####################################################
 ### Sonar-scan Target
