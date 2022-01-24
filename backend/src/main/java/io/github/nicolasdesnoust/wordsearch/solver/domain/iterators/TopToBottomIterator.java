@@ -2,12 +2,12 @@ package io.github.nicolasdesnoust.wordsearch.solver.domain.iterators;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.stream.IntStream;
 
 import io.github.nicolasdesnoust.wordsearch.solver.domain.Coordinates;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.Direction;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.Grid;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.GridLine;
+import io.github.nicolasdesnoust.wordsearch.solver.util.ArrayUtil;
 
 public class TopToBottomIterator implements Iterator<GridLine> {
     
@@ -27,7 +27,7 @@ public class TopToBottomIterator implements Iterator<GridLine> {
     @Override
     public GridLine next() {
         if(hasNext()) {
-            String column = getColumn(grid.getLetters(), currentColumnIndex);
+            String column = ArrayUtil.getColumn(grid.getLetters(), currentColumnIndex, ' ');
             Coordinates firstCellCoordinates = new Coordinates(currentColumnIndex, 0);
 
             currentColumnIndex++;
@@ -36,17 +36,6 @@ public class TopToBottomIterator implements Iterator<GridLine> {
         } else {
             throw new NoSuchElementException();
         }
-    }
-
-    String getColumn(char[][] matrix, int column) {
-        var ints = IntStream.range(0, matrix.length)
-                .map(i -> matrix[i].length < column ? ' ' : matrix[i][column])
-                .toArray();
-        String res = "";
-        for (int i : ints) {
-            res += (char) i;
-        }
-        return res;
     }
 
 }

@@ -14,6 +14,7 @@ word-search:
   name: @project.name@
   version: @project.version@
   description: @project.description@
+  temporary-directory-path: ${TEMPORARY_DIRECTORY_PATH:${java.io.tmpdir}}
   ocr:
     maximum-duration: 40_000
     data-path: ${TESSDATA_PREFIX}

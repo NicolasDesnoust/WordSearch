@@ -89,13 +89,21 @@ COPY --from=build-docs /workspace/docs/build/site /
 ####################################################
 FROM adoptopenjdk/openjdk11:jre-11.0.11_9-alpine
 VOLUME /tmp
+
 RUN addgroup -S wordsearch && adduser -S wordsearch -G wordsearch
-USER wordsearch:wordsearch
-ENV TESSDATA_PREFIX /workspace/app/tessdata
+
+ENV TEMPORARY_DIRECTORY_PATH /wordsearch-tmp
+RUN mkdir -m 700 ${TEMPORARY_DIRECTORY_PATH}
+RUN chown wordsearch ${TEMPORARY_DIRECTORY_PATH}
+
+ENV TESSDATA_PREFIX /workspace/backend/tessdata
 COPY --from=build ${TESSDATA_PREFIX} ${TESSDATA_PREFIX}
-ARG DEPENDENCY=/workspace/app/target/dependency
+
+ARG DEPENDENCY=/workspace/backend/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
+
+USER wordsearch:wordsearch
 
 CMD java -Xmx300m -Xss512k -XX:CICompilerCount=2 -Dfile.encoding=UTF-8 -XX:+UseContainerSupport -cp app:app/lib/* io.github.nicolasdesnoust.wordsearch.WordSearchApplication

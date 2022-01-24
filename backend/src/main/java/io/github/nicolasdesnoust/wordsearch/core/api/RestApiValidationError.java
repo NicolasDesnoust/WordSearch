@@ -1,12 +1,14 @@
 package io.github.nicolasdesnoust.wordsearch.core.api;
 
+import java.io.Serializable;
+
+import javax.validation.ConstraintViolation;
+
 import io.github.nicolasdesnoust.wordsearch.core.api.RestApiError.RestApiSubError;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import javax.validation.ConstraintViolation;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -32,7 +34,7 @@ public class RestApiValidationError implements RestApiSubError {
 			example = "null",
 			required = true
 	)
-	private Object rejectedValue;
+	private Serializable rejectedValue;
 
 	@Schema(
 			description = "Message expliquant pourquoi la valeur de la propriété est considérée invalide.",
@@ -44,12 +46,30 @@ public class RestApiValidationError implements RestApiSubError {
 	public static <T> RestApiValidationError fromConstraintViolation(
 			ConstraintViolation<T> constraintViolation
 	) {
+		
+		String object = constraintViolation.getRootBeanClass().getSimpleName();
+		String field = constraintViolation.getPropertyPath().toString();
+		Serializable invalidValue = makeObjectSerializable(constraintViolation.getInvalidValue());
+		String message = constraintViolation.getMessage();
+		
 		return new RestApiValidationError(
-				constraintViolation.getRootBeanClass().getSimpleName(),
-				constraintViolation.getPropertyPath().toString(),
-				constraintViolation.getInvalidValue(),
-				constraintViolation.getMessage()
+				object,
+				field,
+				invalidValue,
+				message
 		);
+	}
+
+	private static Serializable makeObjectSerializable(Object toMakeSerializable) {
+		Serializable serialized;
+		
+		if(toMakeSerializable instanceof Serializable) {
+			serialized = (Serializable) toMakeSerializable;
+		} else {
+			serialized = toMakeSerializable.toString();
+		}
+
+		return serialized;
 	}
 }
 

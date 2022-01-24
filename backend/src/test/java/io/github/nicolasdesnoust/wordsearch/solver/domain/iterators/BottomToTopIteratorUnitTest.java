@@ -9,7 +9,7 @@ import io.github.nicolasdesnoust.wordsearch.solver.domain.Direction;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.Grid;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.GridLine;
 
-public class BottomToTopIteratorUnitTest {
+class BottomToTopIteratorUnitTest {
 
     Grid grid = new Grid(new char[][] {
             { 'A', 'U', },

@@ -1,5 +1,8 @@
 package io.github.nicolasdesnoust.wordsearch.ocr.api;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
+
 import io.github.nicolasdesnoust.wordsearch.core.api.OpenApiConstants;
 import io.github.nicolasdesnoust.wordsearch.core.api.RestApiError;
 import io.github.nicolasdesnoust.wordsearch.ocr.usecases.ConvertsGridPictureUseCase.ConvertsGridPictureResponse;
@@ -9,8 +12,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.multipart.MultipartFile;
 
 @Tag(
         name = OpenApiConstants.Ocr.TAG_NAME,

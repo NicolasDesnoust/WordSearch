@@ -7,6 +7,7 @@ import io.github.nicolasdesnoust.wordsearch.solver.domain.Coordinates;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.Direction;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.Grid;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.GridLine;
+import io.github.nicolasdesnoust.wordsearch.solver.util.StringUtil;
 
 public class RightToLeftIterator implements Iterator<GridLine> {
 
@@ -26,21 +27,16 @@ public class RightToLeftIterator implements Iterator<GridLine> {
     @Override
     public GridLine next() {
         if (hasNext()) {
-            String row = reverse(String.valueOf(grid.getLetters()[currentRowIndex]));
+            String leftToRightRow = String.valueOf(grid.getLetters()[currentRowIndex]);
+            String rigthToLeftRow = StringUtil.reverse(leftToRightRow);
             Coordinates firstCellCoordinates = new Coordinates(grid.getWidth() - 1, currentRowIndex);
 
             currentRowIndex++;
 
-            return new GridLine(row, Direction.RIGHT_TO_LEFT, firstCellCoordinates);
+            return new GridLine(rigthToLeftRow, Direction.RIGHT_TO_LEFT, firstCellCoordinates);
         } else {
             throw new NoSuchElementException();
         }
-    }
-
-    private String reverse(String stringToReverse) {
-        return new StringBuilder(stringToReverse)
-                .reverse()
-                .toString();
     }
 
 }

@@ -1,13 +1,5 @@
 package io.github.nicolasdesnoust.wordsearch.architecture;
 
-import com.tngtech.archunit.core.importer.ImportOption;
-import com.tngtech.archunit.junit.AnalyzeClasses;
-import com.tngtech.archunit.junit.ArchTest;
-import com.tngtech.archunit.lang.ArchRule;
-import io.github.nicolasdesnoust.wordsearch.WordSearchApplication;
-import io.github.nicolasdesnoust.wordsearch.architecture.Layers.TechnicalLayer;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-
 import static com.tngtech.archunit.base.DescribedPredicate.alwaysTrue;
 import static com.tngtech.archunit.base.DescribedPredicate.not;
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.assignableTo;
@@ -16,6 +8,16 @@ import static com.tngtech.archunit.lang.conditions.ArchPredicates.are;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
+
+import com.tngtech.archunit.core.importer.ImportOption;
+import com.tngtech.archunit.junit.AnalyzeClasses;
+import com.tngtech.archunit.junit.ArchTest;
+import com.tngtech.archunit.lang.ArchRule;
+
+import org.springframework.web.bind.annotation.ControllerAdvice;
+
+import io.github.nicolasdesnoust.wordsearch.WordSearchApplication;
+import io.github.nicolasdesnoust.wordsearch.architecture.Layers.TechnicalLayer;
 
 @AnalyzeClasses(
         packages = Layers.ABSOLUTE_PATH_OF_BASE_PACKAGE,

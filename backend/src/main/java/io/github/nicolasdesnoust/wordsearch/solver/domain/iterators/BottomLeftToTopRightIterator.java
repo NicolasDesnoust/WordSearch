@@ -26,11 +26,14 @@ public class BottomLeftToTopRightIterator implements Iterator<GridLine> {
     @Override
     public GridLine next() {
         if (hasNext()) {
-            String diagonal = "";
+            StringBuilder diagonalBuilder = new StringBuilder();
+            
             for (int j = 0; j <= diagonalIndex; j++) {
                 int i = diagonalIndex - j;
+                
                 if (i < grid.getHeight() && j < grid.getWidth()) {
-                    diagonal += grid.getLetters()[i][j];
+                    char currentLetter = grid.getLetters()[i][j];
+                    diagonalBuilder.append(currentLetter);
                 }
             }
 
@@ -41,7 +44,7 @@ public class BottomLeftToTopRightIterator implements Iterator<GridLine> {
 
             diagonalIndex++;
 
-            return new GridLine(diagonal, Direction.BOTTOM_LEFT_TO_TOP_RIGHT, firstCellCoordinates);
+            return new GridLine(diagonalBuilder.toString(), Direction.BOTTOM_LEFT_TO_TOP_RIGHT, firstCellCoordinates);
         } else {
             throw new NoSuchElementException();
         }

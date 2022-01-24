@@ -2,12 +2,13 @@ package io.github.nicolasdesnoust.wordsearch.solver.domain.iterators;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.stream.IntStream;
 
 import io.github.nicolasdesnoust.wordsearch.solver.domain.Coordinates;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.Direction;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.Grid;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.GridLine;
+import io.github.nicolasdesnoust.wordsearch.solver.util.ArrayUtil;
+import io.github.nicolasdesnoust.wordsearch.solver.util.StringUtil;
 
 public class BottomToTopIterator implements Iterator<GridLine> {
     
@@ -27,32 +28,16 @@ public class BottomToTopIterator implements Iterator<GridLine> {
     @Override
     public GridLine next() {
         if(hasNext()) {
-            String column = reverse(getColumn(grid.getLetters(), currentColumnIndex, ' '));
+            String topToBottomColumn = ArrayUtil.getColumn(grid.getLetters(), currentColumnIndex, ' ');
+            String bottomToTopColumn = StringUtil.reverse(topToBottomColumn);
             Coordinates firstCellCoordinates = new Coordinates(currentColumnIndex, grid.getHeight() - 1);
 
             currentColumnIndex++;
 
-            return new GridLine(column, Direction.BOTTOM_TO_TOP, firstCellCoordinates);
+            return new GridLine(bottomToTopColumn, Direction.BOTTOM_TO_TOP, firstCellCoordinates);
         } else {
             throw new NoSuchElementException();
         }
-    }
-
-    private String reverse(String stringToReverse) {
-        return new StringBuilder(stringToReverse)
-                .reverse()
-                .toString();
-    }
-
-    private String getColumn(char[][] matrix, int column, int defaultVal) {
-        var ints = IntStream.range(0, matrix.length)
-                .map(i -> matrix[i].length < column ? defaultVal : matrix[i][column])
-                .toArray();
-        String res = "";
-        for (int i : ints) {
-            res += (char) i;
-        }
-        return res;
     }
 
 }
