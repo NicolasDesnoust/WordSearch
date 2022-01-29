@@ -1,6 +1,7 @@
 package io.github.nicolasdesnoust.wordsearch.core.api;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.validation.ConstraintViolation;
 
@@ -66,7 +67,7 @@ public class RestApiValidationError implements RestApiSubError {
 		if(toMakeSerializable instanceof Serializable) {
 			serialized = (Serializable) toMakeSerializable;
 		} else {
-			serialized = toMakeSerializable.toString();
+			serialized = Objects.toString(toMakeSerializable);
 		}
 
 		return serialized;
