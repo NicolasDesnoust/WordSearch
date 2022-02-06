@@ -371,4 +371,22 @@ class SolveWordSearchUseCaseTest {
                 });
     }
 
+    @Test
+    void givenDuplicateWords_whenSolveWordSearch_thenOnlyLookForOne() {
+        var request = SolveWordSearchRequest.builder()
+                .withGrid(String.join(System.lineSeparator(),
+                        "BONJOURED",
+                        "GDALLOSOF"
+                ))
+                .withWords("BONJOUR BONJOUR BONJOUR BONJOUR")
+                .build();
+
+        var response = underTest.solveWordSearch(request);
+
+        assertThat(response.getWordLocations())
+                .hasSize(1)
+                .extracting(WordLocationDto::getWord)
+                .containsExactly("BONJOUR");
+    }
+
 }
