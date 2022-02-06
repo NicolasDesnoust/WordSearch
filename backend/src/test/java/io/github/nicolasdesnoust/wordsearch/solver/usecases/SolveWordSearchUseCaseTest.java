@@ -272,4 +272,28 @@ class SolveWordSearchUseCaseTest {
                 .containsOnly(direction, "BOL");
     }
 
+    @Test
+    void givenGridWithHoles_whenSolveWordSearch_thenFillHolesWithSpaces() {
+        var request = SolveWordSearchRequest.builder()
+                .withGrid(String.join(System.lineSeparator(),
+                        "BONJOURED",
+                        "ACLOD",
+                        "FERGDBMFIM",
+                        "WQ"
+                ))
+                .withWords("BONJOUR")
+                .build();
+
+        var response = underTest.solveWordSearch(request);
+
+        assertThat(response)
+                .extracting(SolveWordSearchResponse::getInputGrid)
+                .isEqualTo(new char[][]{
+                        "BONJOURED ".toCharArray(),
+                        "ACLOD     ".toCharArray(),
+                        "FERGDBMFIM".toCharArray(),
+                        "WQ        ".toCharArray()
+                });
+    }
+
 }
