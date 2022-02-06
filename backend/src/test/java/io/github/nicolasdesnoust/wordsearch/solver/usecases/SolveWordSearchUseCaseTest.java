@@ -335,4 +335,40 @@ class SolveWordSearchUseCaseTest {
                 });
     }
 
+    @Test
+    void givenWordsWithAccents_whenSolveWordSearch_thenStripAccents() {
+        var request = SolveWordSearchRequest.builder()
+                .withGrid(String.join(System.lineSeparator(),
+                        "AAACEEEEIIOUUU",
+                        "OUUUAAACEEEEII"
+                ))
+                .withWords("âàäçéèêëîïôùûü ÔÙÛÜÂÀÄÇÉÈÊËÎÏ")
+                .build();
+
+        var response = underTest.solveWordSearch(request);
+
+        assertThat(response.getWordLocations())
+                .extracting(WordLocationDto::getWord)
+                .containsExactlyInAnyOrder("AAACEEEEIIOUUU", "OUUUAAACEEEEII");
+    }
+
+    @Test
+    void givenGridWithAccents_whenSolveWordSearch_thenStripAccents() {
+        var request = SolveWordSearchRequest.builder()
+                .withGrid(String.join(System.lineSeparator(),
+                        "âàäçéèêëîïôùûü",
+                        "ÔÙÛÜÂÀÄÇÉÈÊËÎÏ"
+                ))
+                .withWords("BONJOUR")
+                .build();
+
+        var response = underTest.solveWordSearch(request);
+
+        assertThat(response.getInputGrid())
+                .isEqualTo(new char[][]{
+                        "AAACEEEEIIOUUU".toCharArray(),
+                        "OUUUAAACEEEEII".toCharArray()
+                });
+    }
+
 }

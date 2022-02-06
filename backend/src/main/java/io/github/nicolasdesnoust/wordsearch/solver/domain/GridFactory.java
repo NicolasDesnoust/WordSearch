@@ -12,7 +12,8 @@ public class GridFactory {
 
     public Grid createFrom(String rawGrid) {
         rawGrid = rawGrid.toUpperCase(Locale.FRENCH);
-        List<String> rows = toRows(rawGrid);
+        rawGrid = StringUtils.stripAccents(rawGrid);
+        List<String> rows = extractRows(rawGrid);
 
         int gridHeight = rows.size();
         int gridWidth = findGridWidth(rows);
@@ -24,7 +25,7 @@ public class GridFactory {
         return new Grid(gridAsCharMatrix);
     }
 
-    private List<String> toRows(String rawGrid) {
+    private List<String> extractRows(String rawGrid) {
         List<String> rows = new ArrayList<>();
 
         try (Scanner scanner = new Scanner(rawGrid)) {
