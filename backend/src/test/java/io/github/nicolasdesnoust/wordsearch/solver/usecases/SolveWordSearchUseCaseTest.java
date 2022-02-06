@@ -296,4 +296,43 @@ class SolveWordSearchUseCaseTest {
                 });
     }
 
+    @Test
+    void whenSolveWordSearch_thenIgnoreCase() {
+        var request = SolveWordSearchRequest.builder()
+                .withGrid(String.join(System.lineSeparator(),
+                        "bOnJoUREh",
+                        "FErGdBmFo",
+                        "AdTJvBsJP"
+                ))
+                .withWords("BONjOUr Hop")
+                .build();
+
+        var response = underTest.solveWordSearch(request);
+
+        assertThat(response.getWordLocations())
+                .extracting(WordLocationDto::getWord)
+                .containsExactlyInAnyOrder("BONJOUR", "HOP");
+    }
+
+    @Test
+    void whenSolveWordSearch_thenUppercaseInputGrid() {
+        var request = SolveWordSearchRequest.builder()
+                .withGrid(String.join(System.lineSeparator(),
+                        "bOnJoUREh",
+                        "FErGdBmFo",
+                        "AdTJvBsJP"
+                ))
+                .withWords("BONJOUR")
+                .build();
+
+        var response = underTest.solveWordSearch(request);
+
+        assertThat(response.getInputGrid())
+                .isEqualTo(new char[][]{
+                        "BONJOUREH".toCharArray(),
+                        "FERGDBMFO".toCharArray(),
+                        "ADTJVBSJP".toCharArray()
+                });
+    }
+
 }

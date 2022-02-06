@@ -4,12 +4,14 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class GridFactory {
 
     public Grid createFrom(String rawGrid) {
+        rawGrid = rawGrid.toUpperCase(Locale.FRENCH);
         List<String> rows = toRows(rawGrid);
 
         int gridHeight = rows.size();
