@@ -3,6 +3,7 @@ package io.github.nicolasdesnoust.wordsearch.ocr.usecases;
 import java.io.File;
 
 import io.github.nicolasdesnoust.wordsearch.core.usecases.LogUseCaseExecution;
+import io.github.nicolasdesnoust.wordsearch.core.usecases.ValidateRequest;
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.OcrOptions;
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.OcrOptions.DetectionMode;
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.OcrResult;
@@ -18,7 +19,7 @@ public class ConvertsGridPictureUseCase {
     private final GridFactory gridFactory;
 
     @LogUseCaseExecution
-    public ConvertsGridPictureResponse convertsGridPicture(ConvertsGridPictureRequest request) {
+    public ConvertsGridPictureResponse convertsGridPicture(@ValidateRequest ConvertsGridPictureRequest request) {
         OcrOptions options = OcrOptions.builder()
                 .withDetectionMode(DetectionMode.GRID)
                 .build();

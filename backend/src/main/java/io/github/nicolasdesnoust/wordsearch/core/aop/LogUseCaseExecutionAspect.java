@@ -15,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 class LogUseCaseExecutionAspect {
 
+    private static final String INVALID_USE_CASE = "Annotation @LogUseCaseExecution may not be placed on a valid UseCase.";
+
     @Around("@annotation(io.github.nicolasdesnoust.wordsearch.core.usecases.LogUseCaseExecution)")
     public Object logUseCaseExecution(ProceedingJoinPoint joinPoint) throws Throwable {
         Object request = getRequestFrom(joinPoint);
@@ -35,8 +37,8 @@ class LogUseCaseExecutionAspect {
 
         try {
             useCase = joinPoint.getArgs()[0];
-        } catch(ArrayIndexOutOfBoundsException e) {
-            throw new InvalidUseCaseException("Annotation @LogUseCaseExecution may not be placed on a valid UseCase.", e);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidUseCaseException(INVALID_USE_CASE, e);
         }
 
         return useCase;
@@ -47,5 +49,4 @@ class LogUseCaseExecutionAspect {
             super(message, cause);
         }
     }
-
 }

@@ -1,5 +1,6 @@
 package io.github.nicolasdesnoust.wordsearch.solver.usecases;
 
+import io.github.nicolasdesnoust.wordsearch.core.aop.ValidateRequestAspect;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.Direction;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.GridFactory;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.NaiveWordFinder;
@@ -8,10 +9,12 @@ import io.github.nicolasdesnoust.wordsearch.solver.domain.WordsFactory;
 import io.github.nicolasdesnoust.wordsearch.solver.usecases.SolveWordSearchUseCase.SolveWordSearchRequest;
 import io.github.nicolasdesnoust.wordsearch.solver.usecases.SolveWordSearchUseCase.SolveWordSearchResponse;
 import io.github.nicolasdesnoust.wordsearch.solver.usecases.SolveWordSearchUseCase.SolveWordSearchResponse.WordLocationDto;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.springframework.aop.aspectj.annotation.AspectJProxyFactory;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validation;
@@ -24,17 +27,26 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class SolveWordSearchUseCaseTest {
 
-    GridFactory gridFactory = new GridFactory();
-    WordsFactory wordsFactory = new WordsFactory();
-    WordFinder wordFinder = new NaiveWordFinder();
-    Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+    static SolveWordSearchUseCase underTest;
 
-    SolveWordSearchUseCase underTest = new SolveWordSearchUseCase(
-            gridFactory,
-            wordsFactory,
-            wordFinder,
-            validator
-    );
+    @BeforeAll
+    public static void setupUseCaseWithItsDependenciesAndAOP() {
+        GridFactory gridFactory = new GridFactory();
+        WordsFactory wordsFactory = new WordsFactory();
+        WordFinder wordFinder = new NaiveWordFinder();
+
+        SolveWordSearchUseCase solveWordSearchUseCase = new SolveWordSearchUseCase(
+                gridFactory,
+                wordsFactory,
+                wordFinder
+        );
+
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        ValidateRequestAspect aspect = new ValidateRequestAspect(validator);
+        AspectJProxyFactory factory = new AspectJProxyFactory(solveWordSearchUseCase);
+        factory.addAspect(aspect);
+        underTest = factory.getProxy();
+    }
 
     static Stream<String> invalidGrids() {
         int maximumGridSize = 5000;

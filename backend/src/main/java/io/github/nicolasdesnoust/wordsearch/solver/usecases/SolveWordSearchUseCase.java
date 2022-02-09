@@ -1,6 +1,7 @@
 package io.github.nicolasdesnoust.wordsearch.solver.usecases;
 
 import io.github.nicolasdesnoust.wordsearch.core.usecases.LogUseCaseExecution;
+import io.github.nicolasdesnoust.wordsearch.core.usecases.ValidateRequest;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.Grid;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.GridFactory;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.WordFinder;
@@ -11,13 +12,9 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import javax.validation.Validator;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -26,12 +23,9 @@ public class SolveWordSearchUseCase {
     private final GridFactory gridFactory;
     private final WordsFactory wordsFactory;
     private final WordFinder wordFinder;
-    private final Validator validator;
 
     @LogUseCaseExecution
-    public SolveWordSearchResponse solveWordSearch(SolveWordSearchRequest request) {
-        validate(request);
-
+    public SolveWordSearchResponse solveWordSearch(@ValidateRequest SolveWordSearchRequest request) {
         Grid grid = gridFactory.createFrom(request.getGrid());
         List<String> words = wordsFactory.createFrom(request.getWords());
 
@@ -44,14 +38,6 @@ public class SolveWordSearchUseCase {
                 .withWordLocations(toWordLocationDtoList(wordLocations))
                 .withUnusedLetters(grid.getUnusedLetters())
                 .build();
-    }
-
-    private void validate(SolveWordSearchRequest request) {
-        Set<ConstraintViolation<SolveWordSearchRequest>> violations = validator.validate(request);
-
-        if (!violations.isEmpty()) {
-            throw new ConstraintViolationException(violations);
-        }
     }
 
     private List<WordLocationDto> toWordLocationDtoList(List<WordLocation> wordLocations) {

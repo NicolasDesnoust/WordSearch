@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import io.github.nicolasdesnoust.wordsearch.core.usecases.LogUseCaseExecution;
+import io.github.nicolasdesnoust.wordsearch.core.usecases.ValidateRequest;
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.OcrOptions;
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.OcrOptions.DetectionMode;
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.OcrResult;
@@ -19,7 +20,7 @@ public class ConvertsWordsPictureUseCase {
     private final WordsFactory wordsFactory;
 
     @LogUseCaseExecution
-    public ConvertsWordsPictureResponse convertsWordsPicture(ConvertsWordsPictureRequest request) {
+    public ConvertsWordsPictureResponse convertsWordsPicture(@ValidateRequest ConvertsWordsPictureRequest request) {
         OcrOptions options = OcrOptions.builder()
                 .withDetectionMode(DetectionMode.WORD)
                 .build();
