@@ -7,8 +7,8 @@ import io.github.nicolasdesnoust.wordsearch.solver.domain.Coordinates;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.Direction;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.Grid;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.GridLine;
-import io.github.nicolasdesnoust.wordsearch.solver.util.ArrayUtil;
-import io.github.nicolasdesnoust.wordsearch.solver.util.StringUtil;
+import io.github.nicolasdesnoust.wordsearch.solver.domain.util.ArrayUtil;
+import io.github.nicolasdesnoust.wordsearch.solver.domain.util.StringUtil;
 
 public class BottomToTopIterator implements Iterator<GridLine> {
     

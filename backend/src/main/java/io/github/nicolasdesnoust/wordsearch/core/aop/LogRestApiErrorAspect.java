@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import io.github.nicolasdesnoust.wordsearch.core.api.RestApiError;
+import io.github.nicolasdesnoust.wordsearch.core.infrastructure.primary.web.RestApiError;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -20,7 +20,7 @@ class LogRestApiErrorAspect {
 
     public static final String INVALID_EXCEPTION_HANDLER = "Annotation @LogRestApiError may not be placed on a valid @ExceptionHandler.";
 
-    @Around("@annotation(io.github.nicolasdesnoust.wordsearch.core.api.LogRestApiError)")
+    @Around("@annotation(io.github.nicolasdesnoust.wordsearch.core.infrastructure.primary.web.LogRestApiError)")
     public ResponseEntity<Object> logRestApiError(ProceedingJoinPoint joinPoint) throws Throwable {
         Object[] arguments = joinPoint.getArgs();
         Object response = joinPoint.proceed();

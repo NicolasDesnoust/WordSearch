@@ -1,13 +1,14 @@
 package io.github.nicolasdesnoust.wordsearch.ocr.configuration;
 
-import io.github.nicolasdesnoust.wordsearch.core.util.StopWatchFactory;
+import io.github.nicolasdesnoust.wordsearch.ocr.domain.util.StopWatchFactory;
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.OcrConfiguration;
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.OpticalCharacterRecognition;
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.TextDetection;
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.TextRecognition;
-import io.github.nicolasdesnoust.wordsearch.ocr.domain.impl.OpticalCharacterRecognitionImpl;
-import io.github.nicolasdesnoust.wordsearch.ocr.domain.impl.TesseractTextDetection;
-import io.github.nicolasdesnoust.wordsearch.ocr.domain.impl.TesseractTextRecognition;
+import io.github.nicolasdesnoust.wordsearch.ocr.domain.OpticalCharacterRecognitionImpl;
+import io.github.nicolasdesnoust.wordsearch.ocr.infrastructure.secondary.stopwatch.SpringStopWatchFactory;
+import io.github.nicolasdesnoust.wordsearch.ocr.infrastructure.secondary.tesseract.TesseractTextDetection;
+import io.github.nicolasdesnoust.wordsearch.ocr.infrastructure.secondary.tesseract.TesseractTextRecognition;
 import io.github.nicolasdesnoust.wordsearch.ocr.usecases.ConvertsGridPictureUseCase;
 import io.github.nicolasdesnoust.wordsearch.ocr.usecases.ConvertsWordsPictureUseCase;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.GridFactory;
@@ -19,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableConfigurationProperties(OcrConfigurationProperties.class)
-public class OcrApplicationContext {
+class OcrApplicationContext {
 
     @Bean
     public ConvertsGridPictureUseCase convertsGridPictureUseCase(
@@ -50,6 +51,11 @@ public class OcrApplicationContext {
                 configuration,
                 stopWatchFactory
         );
+    }
+
+    @Bean
+    public SpringStopWatchFactory stopWatchFactory() {
+        return new SpringStopWatchFactory();
     }
 
     @Bean

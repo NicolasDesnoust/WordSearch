@@ -7,7 +7,7 @@ import io.github.nicolasdesnoust.wordsearch.solver.domain.Coordinates;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.Direction;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.Grid;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.GridLine;
-import io.github.nicolasdesnoust.wordsearch.solver.util.ArrayUtil;
+import io.github.nicolasdesnoust.wordsearch.solver.domain.util.ArrayUtil;
 
 public class TopToBottomIterator implements Iterator<GridLine> {
     

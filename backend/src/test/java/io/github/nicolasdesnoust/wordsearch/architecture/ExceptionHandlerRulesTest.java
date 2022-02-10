@@ -5,7 +5,7 @@ import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 import io.github.nicolasdesnoust.wordsearch.architecture.Layers.TechnicalLayer;
-import io.github.nicolasdesnoust.wordsearch.core.api.LogRestApiError;
+import io.github.nicolasdesnoust.wordsearch.core.infrastructure.primary.web.LogRestApiError;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -22,7 +22,7 @@ public class ExceptionHandlerRulesTest {
     static ArchRule exception_handlers_should_be_in_their_technical_layer =
             classes()
                     .that().haveSimpleNameEndingWith("ExceptionHandler")
-                    .should().resideInAPackage(TechnicalLayer.API.getAbsolutePath());
+                    .should().resideInAPackage(TechnicalLayer.INFRASTRUCTURE.getAbsolutePath());
 
     @ArchTest
     static ArchRule exception_handlers_should_return_ResponseEntity_instances =

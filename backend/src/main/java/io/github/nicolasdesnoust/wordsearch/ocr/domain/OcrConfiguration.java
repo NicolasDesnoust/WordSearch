@@ -17,7 +17,7 @@ public interface OcrConfiguration {
 	 * The language of pictures to convert.
 	 * 
 	 * This language must have a corresponding trained data model in the folder
-	 * specified by {@link getDataPath()}.
+	 * specified by {@link #getDataPath()}.
 	 */
 	String getLanguage();
 	

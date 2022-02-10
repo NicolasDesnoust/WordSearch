@@ -27,19 +27,18 @@ public class Layers {
     @Getter
     public enum TechnicalLayer {
 
-        API("api"),
-        USE_CASES("usecases"),
         DOMAIN("domain"),
+        USE_CASES("usecases"),
+        INFRASTRUCTURE("infrastructure"),
         CONFIGURATION("configuration"),
-        UTIL("util"),
         AOP("aop");
 
         private final String name;
         private final String absolutePath;
 
-        TechnicalLayer(String packageName) {
-            this.name = packageName;
-            this.absolutePath = ABSOLUTE_PATH_OF_BASE_PACKAGE + ".*." + packageName + "..";
+        TechnicalLayer(String relativePath) {
+            this.name = relativePath;
+            this.absolutePath = ABSOLUTE_PATH_OF_BASE_PACKAGE + ".*." + relativePath + "..";
         }
     }
 

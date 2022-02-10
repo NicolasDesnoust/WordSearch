@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-@Getter
 public class Grid {
+    @Getter
     private final char[][] letters;
     private final int[][] lettersUsage;
 
@@ -57,7 +57,7 @@ public class Grid {
         return lettersNotUsed;
     }
 
-    public Iterator<GridLine> getLineIteratorByDirection(Direction direction) {
+    Iterator<GridLine> getLineIteratorByDirection(Direction direction) {
         switch (direction) {
             case TOP_TO_BOTTOM:
                 return new TopToBottomIterator(this);

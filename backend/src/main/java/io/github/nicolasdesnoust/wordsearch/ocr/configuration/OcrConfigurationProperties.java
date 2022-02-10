@@ -11,7 +11,7 @@ import lombok.Value;
 @Value
 @ConstructorBinding
 @ConfigurationProperties(prefix = "word-search.ocr")
-public class OcrConfigurationProperties implements OcrConfiguration {
+class OcrConfigurationProperties implements OcrConfiguration {
 
 	@Min(50)
 	long maximumDuration;
