@@ -3,7 +3,7 @@
 ####################################################
 ### Base Target
 ####################################################
-FROM adoptopenjdk/openjdk11:jdk-11.0.11_9 as base
+FROM eclipse-temurin:17.0.2_8-jdk as base
 WORKDIR /workspace/backend
 ENV TESSDATA_PREFIX /workspace/backend/tessdata
 
@@ -92,10 +92,10 @@ COPY --from=build-docs /workspace/docs/build/site /
 ####################################################
 ### App Target (default)
 ####################################################
-FROM adoptopenjdk/openjdk11:jre-11.0.11_9-alpine
+FROM eclipse-temurin:17.0.2_8-jre
 VOLUME /tmp
 
-RUN addgroup -S wordsearch && adduser -S wordsearch -G wordsearch
+RUN adduser --system --group wordsearch
 
 ENV TEMPORARY_DIRECTORY_PATH /wordsearch-tmp
 RUN mkdir -m 700 ${TEMPORARY_DIRECTORY_PATH}
