@@ -27,7 +27,10 @@ class ConvertsGridPictureController implements ConvertsGridPictureSpecification 
     @PostMapping(path = "/_converts", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ConvertsGridPictureResponse> convertsGridPicture(@RequestParam MultipartFile gridPicture) {
         File file = this.temporaryFile.write(gridPicture).asFile();
-        var response = useCase.convertsGridPicture(new ConvertsGridPictureRequest(file));
+        ConvertsGridPictureRequest request = ConvertsGridPictureRequest.builder()
+                .withGridPicture(file)
+                .build();
+        var response = useCase.convertsGridPicture(request);
 
         return ResponseEntity.ok(response);
     }

@@ -62,7 +62,7 @@ public class TesseractTextDetection extends TesseractClient implements TextDetec
                 (PIXA) null,
                 (IntBuffer) null);
 
-        int numberOfBoundingBoxes = boundingBoxes.n();
+        int numberOfBoundingBoxes = boundingBoxes == null ? 0 : boundingBoxes.n();
         return IntStream.range(0, numberOfBoundingBoxes)
                 .mapToObj((int currentBoundingBoxIndex) -> {
                     BOX currentBoundingBox = boxaGetBox(boundingBoxes, currentBoundingBoxIndex, L_CLONE);
