@@ -9,6 +9,7 @@ import io.github.nicolasdesnoust.wordsearch.ocr.domain.OcrOptions.DetectionMode;
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.OcrResult;
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.OpticalCharacterRecognition;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.GridFactory;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
@@ -32,6 +33,7 @@ public class ConvertsGridPictureUseCase {
     }
 
     @Value
+    @Builder(setterPrefix = "with")
     public static class ConvertsGridPictureRequest {
         File gridPicture;
     }
