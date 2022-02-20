@@ -1,26 +1,26 @@
 package io.github.nicolasdesnoust.wordsearch.ocr.configuration;
 
-import javax.validation.constraints.Min;
-
+import io.github.nicolasdesnoust.wordsearch.ocr.domain.OcrConfiguration;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
-import io.github.nicolasdesnoust.wordsearch.ocr.domain.OcrConfiguration;
-import lombok.Value;
+import javax.validation.constraints.Min;
 
 @Value
-@Builder(setterPrefix = "with")
-@ConstructorBinding
 @ConfigurationProperties(prefix = "word-search.ocr")
+@Builder(setterPrefix = "with")
+@AllArgsConstructor
+@ConstructorBinding
 public class OcrConfigurationProperties implements OcrConfiguration {
 
-	@Min(50)
-	long maximumDuration;
+    @Min(50)
+    long maximumDuration;
 
-	String dataPath;
+    String dataPath;
 
-	@Builder.Default
-	String language = "FRA";
+    String language;
 
 }
