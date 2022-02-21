@@ -11,6 +11,7 @@ COPY backend/mvnw ./mvnw
 COPY backend/.mvn ./.mvn
 COPY backend/pom.xml ./pom.xml
 COPY backend/tessdata ./tessdata
+COPY backend/lombok.config ./lombok.config
 
 RUN chmod +x mvnw
 RUN --mount=type=cache,target=/root/.m2 \

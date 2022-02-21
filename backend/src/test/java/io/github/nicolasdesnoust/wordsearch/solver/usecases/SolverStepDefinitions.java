@@ -1,11 +1,11 @@
 package io.github.nicolasdesnoust.wordsearch.solver.usecases;
 
 import io.cucumber.java.Before;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.nicolasdesnoust.wordsearch.core.aop.ValidateRequestAspect;
+import io.github.nicolasdesnoust.wordsearch.solver.domain.Coordinates;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.GridFactory;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.NaiveWordFinder;
 import io.github.nicolasdesnoust.wordsearch.solver.domain.WordFinder;
@@ -24,8 +24,7 @@ import javax.validation.Validator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.*;
 
 public class SolverStepDefinitions {
 
@@ -36,7 +35,7 @@ public class SolverStepDefinitions {
     private SolveWordSearchResponse response;
     private Throwable thrown;
 
-    @Before
+    @Before("@SolveWordSearch")
     public void setupUseCaseWithItsDependenciesAndAOP() {
         GridFactory gridFactory = new GridFactory();
         WordsFactory wordsFactory = new WordsFactory();
@@ -106,22 +105,39 @@ public class SolverStepDefinitions {
 
     @Given("a grid of letters that contains a word in direction {string}")
     public void aGridOfLettersThatContainsAWordInDirection(String wordDirection) {
-        requestBuilder.withGrid(GridFixtures.aGridWithOneWordInDirection(wordDirection))
-                .withWords(GridFixtures.getTheWordUsedInDirectionBasedFixtures());
+        String grid = GridFixtures.givenDirection(wordDirection)
+                .aGridThatContainsOneWord();
+        String words = GridFixtures.givenDirection(wordDirection)
+                .getTheWordInsideTheGrid();
+
+        requestBuilder.withGrid(grid).withWords(words);
     }
 
-    @Then("I should be given the word")
-    public void iShouldBeGivenTheWord() {
+    @Then("I should be given the word for the direction {string}")
+    public void iShouldBeGivenTheWordForTheDirection(String wordDirection) {
+        String expectedWord = GridFixtures.givenDirection(wordDirection)
+                .getTheWordInsideTheGrid();
+
         assertThat(response.getWordLocations())
                 .extracting(WordLocationDto::getWord)
-                .containsOnly(GridFixtures.getTheWordUsedInDirectionBasedFixtures());
+                .containsOnly(expectedWord);
     }
 
-    @And("I should be given the direction {string}")
+    @Then("I should be given the direction {string}")
     public void iShouldBeGivenTheDirection(String wordDirection) {
         assertThat(response.getWordLocations())
                 .flatExtracting(WordLocationDto::getDirection)
                 .containsExactly(wordDirection);
+    }
+
+    @Then("I should be given the word location for the direction {string}")
+    public void iShouldBeGivenTheWordLocationForTheDirection(String wordDirection) {
+        Coordinates expectedCoordinates = GridFixtures.givenDirection(wordDirection)
+                .getCoordinatesOfTheWordInsideTheGrid();
+
+        assertThat(response.getWordLocations())
+                .extracting(WordLocationDto::getX, WordLocationDto::getY)
+                .containsExactly(tuple(expectedCoordinates.getX(), expectedCoordinates.getY()));
     }
 
     @Given("a grid with words everywhere")
@@ -270,7 +286,7 @@ public class SolverStepDefinitions {
 
     @Given("an invalid grid that is {string}")
     public void anInvalidGridThatIs(String invalidGridType) {
-        String invalidGrid = GridFixtures.InvalidGrid.valueOf(invalidGridType)
+        String invalidGrid = GridFixtures.InvalidGrids.valueOf(invalidGridType)
                 .build();
 
         requestBuilder.withGrid(invalidGrid);
@@ -290,4 +306,5 @@ public class SolverStepDefinitions {
                 .isInstanceOf(ConstraintViolationException.class)
                 .hasMessageContaining(invalidThing);
     }
+
 }

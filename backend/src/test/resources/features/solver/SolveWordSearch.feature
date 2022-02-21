@@ -1,17 +1,14 @@
+@SolveWordSearch
 Feature: Solve Word Search
   Find all words in word search puzzles.
   Word search puzzles are a letter puzzle game whose goal is to find in a grid of letters a given list of words.
 
-  Scenario: Should return back the grid of letters
-    Given a grid of letters
-    When I solve the word search puzzle
-    Then I should be given back the grid
-
   Scenario Outline: Should find a word in each direction
     Given a grid of letters that contains a word in direction "<direction>"
     When I solve the word search puzzle
-    Then I should be given the word
-    And I should be given the direction "<direction>"
+    Then I should be given the direction "<direction>"
+    And I should be given the word for the direction "<direction>"
+    And I should be given the word location for the direction "<direction>"
     Examples:
       | direction                |
       | LEFT_TO_RIGHT            |
@@ -22,6 +19,11 @@ Feature: Solve Word Search
       | BOTTOM_RIGHT_TO_TOP_LEFT |
       | TOP_RIGHT_TO_BOTTOM_LEFT |
       | BOTTOM_LEFT_TO_TOP_RIGHT |
+
+  Scenario: Should return back the grid of letters
+    Given a grid of letters
+    When I solve the word search puzzle
+    Then I should be given back the grid
 
   Scenario: Should tell that grids with words everywhere have no unused letters
     Given a grid with words everywhere
