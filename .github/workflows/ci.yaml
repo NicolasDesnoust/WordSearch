@@ -2,12 +2,14 @@ name: WordSearch Workflow
 
 on:  
   push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
 
 jobs:
-  workflow:
+  ci:
     runs-on: ubuntu-latest
     env:
       DOCKER_BUILDKIT: "1"
@@ -34,9 +36,11 @@ jobs:
         run: |
           make export-docs
           touch ${{ env.DOCS_DIR }}/.nojekyll
+        if: github.event_name == 'push'
 
       - name: Deploy documentation on Github Pages 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
           branch: gh-pages
           folder: ${{ env.DOCS_DIR }}
+        if: github.event_name == 'push'

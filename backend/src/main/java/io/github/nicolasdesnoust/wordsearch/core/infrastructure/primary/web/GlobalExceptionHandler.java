@@ -1,11 +1,10 @@
 package io.github.nicolasdesnoust.wordsearch.core.infrastructure.primary.web;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolationException;
-
+import io.github.nicolasdesnoust.wordsearch.core.domain.StandardErrorMessage;
+import io.github.nicolasdesnoust.wordsearch.core.infrastructure.primary.web.RestApiError.RestApiSubError;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,78 +13,73 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
-import io.github.nicolasdesnoust.wordsearch.core.infrastructure.primary.web.RestApiError.RestApiSubError;
-import lombok.RequiredArgsConstructor;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 @RequiredArgsConstructor
-class GlobalExceptionHandler {
+public class GlobalExceptionHandler {
 
+    private final ObjectFactory<ErrorResponseBuilder> errorResponseBuilderFactory;
     private final Environment env;
 
     @LogRestApiError
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler
     public ResponseEntity<RestApiError> handleAllExceptions(
             Exception exception,
             HttpServletRequest request
     ) {
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-
-        RestApiError apiError = RestApiError.builder()
-                .withStatus(status.value())
-                .withType(ErrorType.INTERNAL_ERROR)
-                .withTitle(env.getProperty("word-search.errors.internal-server-error.title"))
-                .withDetail(env.getProperty("word-search.errors.internal-server-error.detail"))
+        return errorResponseBuilderFactory.getObject()
+                .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                .withUserFriendlyErrorMessage(StandardErrorMessage.INTERNAL_SERVER_ERROR)
                 .withPath(request.getRequestURI())
-                .build();
-
-        return ResponseEntity.status(status).body(apiError);
+                .buildErrorResponse();
     }
 
     @LogRestApiError
-    @ExceptionHandler(ConstraintViolationException.class)
+    @ExceptionHandler
     public ResponseEntity<RestApiError> handleConstraintViolationException(
             ConstraintViolationException exception,
             HttpServletRequest request
     ) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-
         List<RestApiSubError> subErrors = exception.getConstraintViolations().stream()
                 .map(RestApiValidationError::fromConstraintViolation)
                 .collect(Collectors.toList());
 
-        RestApiError apiError = RestApiError.builder()
-                .withStatus(status.value())
-                .withType(ErrorType.CONSTRAINT_VIOLATION)
-                .withTitle(env.getProperty("word-search.errors.constraint-violation.title"))
-                .withDetail(exception.getMessage())
+        return errorResponseBuilderFactory.getObject()
+                .withStatus(HttpStatus.BAD_REQUEST)
+                .withUserFriendlyErrorMessage(StandardErrorMessage.CONSTRAINT_VIOLATION)
                 .withPath(request.getRequestURI())
                 .withSubErrors(subErrors)
-                .build();
-
-        return ResponseEntity.status(status).body(apiError);
+                .buildErrorResponse();
     }
 
     @LogRestApiError
-    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    @ExceptionHandler
     public ResponseEntity<RestApiError> handleMaxUploadSizeExceededException(
             MaxUploadSizeExceededException exception,
             HttpServletRequest request
     ) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
+        String fileSize = toHumanReadableFileSize(request.getHeader(HttpHeaders.CONTENT_LENGTH));
+        String maxRequestSize = toHumanReadableFileSize(env.getProperty("spring.servlet.multipart.max-request-size"));
 
-        RestApiError apiError = RestApiError.builder()
-                .withStatus(status.value())
-                .withType(ErrorType.MAX_UPLOAD_SIZE_EXCEEDED)
-                .withTitle(env.getProperty("word-search.errors.max-upload-size-exceeded.title"))
-                .withDetail(String.format(
-                        env.getProperty("word-search.errors.max-upload-size-exceeded.detail"),
-                        request.getHeader(HttpHeaders.CONTENT_LENGTH)
-                ))
+        return errorResponseBuilderFactory.getObject()
+                .withStatus(HttpStatus.BAD_REQUEST)
+                .withUserFriendlyErrorMessage(StandardErrorMessage.MAX_UPLOAD_SIZE_EXCEEDED)
+                .withMessageArgument(fileSize)
+                .withMessageArgument(maxRequestSize)
                 .withPath(request.getRequestURI())
-                .build();
+                .buildErrorResponse();
+    }
 
-        return ResponseEntity.status(status).body(apiError);
+    private String toHumanReadableFileSize(String rawFileSize) {
+        if(rawFileSize == null) {
+            return "unknown";
+        }
+
+        return FileUtils.byteCountToDisplaySize(Long.parseLong(rawFileSize));
     }
 
 }

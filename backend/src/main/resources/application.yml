@@ -1,6 +1,8 @@
 server:
   port: ${PORT:8080}
 spring:
+  messages:
+    basename: i18n/messages
   jackson:
     default-property-inclusion: non_null
   output:
@@ -19,17 +21,3 @@ word-search:
     maximum-duration: 40_000
     data-path: ${TESSDATA_PREFIX}
     language: FRA
-  errors:
-    internal-server-error:
-      title: Erreur interne du serveur
-      detail: No details available.
-    constraint-violation:
-      title: Erreur de validation
-    max-upload-size-exceeded:
-      title: Taille maximale d'upload atteinte
-      detail: La requête a été rejetée car sa taille (%s) excède le maximum configuré (${spring.servlet.multipart.max-request-size}).
-    optical-character-recognition-error:
-      title: Le fichier ne peut être converti
-      detail: No details available.
-    unsupported-format:
-      title: Format de fichier non-supporté

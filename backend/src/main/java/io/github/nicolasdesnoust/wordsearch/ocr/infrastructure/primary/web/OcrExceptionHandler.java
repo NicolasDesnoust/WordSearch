@@ -1,14 +1,14 @@
 package io.github.nicolasdesnoust.wordsearch.ocr.infrastructure.primary.web;
 
-import io.github.nicolasdesnoust.wordsearch.core.infrastructure.primary.web.ErrorType;
+import io.github.nicolasdesnoust.wordsearch.core.infrastructure.primary.web.ErrorResponseBuilder;
 import io.github.nicolasdesnoust.wordsearch.core.infrastructure.primary.web.LogRestApiError;
 import io.github.nicolasdesnoust.wordsearch.core.infrastructure.primary.web.RestApiError;
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.OpticalCharacterRecognition.OcrException;
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.OpticalCharacterRecognitionImpl.UnsupportedFormatException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,44 +21,33 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 class OcrExceptionHandler {
 
-    private final Environment env;
+    private final ObjectFactory<ErrorResponseBuilder> errorResponseBuilderFactory;
 
     @LogRestApiError
-    @ExceptionHandler(OcrException.class)
+    @ExceptionHandler
     public ResponseEntity<RestApiError> handleOcrException(
             OcrException exception,
             HttpServletRequest request
     ) {
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-
-        RestApiError apiError = RestApiError.builder()
-                .withStatus(status.value())
-                .withType(ErrorType.OPTICAL_CHARACTER_RECOGNITION_ERROR)
-                .withTitle(env.getProperty("word-search.errors.optical-character-recognition-error.title"))
-                .withDetail(env.getProperty("word-search.errors.optical-character-recognition-error.detail"))
+        return errorResponseBuilderFactory.getObject()
+                .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                .withUserFriendlyErrorMessage(exception.getUserFriendlyMessage())
                 .withPath(request.getRequestURI())
-                .build();
-
-        return ResponseEntity.status(status).body(apiError);
+                .buildErrorResponse();
     }
 
     @LogRestApiError
-    @ExceptionHandler(UnsupportedFormatException.class)
+    @ExceptionHandler
     public ResponseEntity<RestApiError> handleUnsupportedFormatException(
             UnsupportedFormatException exception,
             HttpServletRequest request
     ) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-
-        RestApiError apiError = RestApiError.builder()
-                .withStatus(status.value())
-                .withType(ErrorType.UNSUPPORTED_FORMAT)
-                .withTitle(env.getProperty("word-search.errors.unsupported-format.title"))
-                .withDetail(exception.getMessage())
+        return errorResponseBuilderFactory.getObject()
+                .withStatus(HttpStatus.BAD_REQUEST)
+                .withUserFriendlyErrorMessage(exception.getUserFriendlyMessage())
+                .withMessageArgument(exception.getUnsupportedFormat())
                 .withPath(request.getRequestURI())
-                .build();
-
-        return ResponseEntity.status(status).body(apiError);
+                .buildErrorResponse();
     }
 
 }

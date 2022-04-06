@@ -4,17 +4,17 @@ import java.io.File;
 import java.util.List;
 import java.util.Set;
 
+import io.github.nicolasdesnoust.wordsearch.core.domain.StandardErrorMessage;
 import io.github.nicolasdesnoust.wordsearch.core.domain.util.FileUtil;
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.util.StopWatch;
 import io.github.nicolasdesnoust.wordsearch.ocr.domain.util.StopWatchFactory;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
 public class OpticalCharacterRecognitionImpl implements OpticalCharacterRecognition {
-
-    private static final String UNSUPPORTED_FORMAT_ERROR = "The image format '%s' is invalid or unsupported.";
 
     private final TextDetection textDetection;
     private final TextRecognition textRecognition;
@@ -45,8 +45,7 @@ public class OpticalCharacterRecognitionImpl implements OpticalCharacterRecognit
         String fileExtension = FileUtil.getExtension(file.getName()).orElse("<UNKNOWN>");
 
         if (!supportedFileExtensions.contains(fileExtension)) {
-            throw new UnsupportedFormatException(
-                    String.format(UNSUPPORTED_FORMAT_ERROR, fileExtension));
+            throw new UnsupportedFormatException(fileExtension);
         }
 
     }
@@ -89,8 +88,17 @@ public class OpticalCharacterRecognitionImpl implements OpticalCharacterRecognit
 
     public static class UnsupportedFormatException extends OcrException {
 
-        public UnsupportedFormatException(String message) {
-            super(message);
+        private static final String UNSUPPORTED_FORMAT_ERROR = "The file format '%s' is invalid or unsupported.";
+
+        @Getter
+        private final String unsupportedFormat;
+
+        public UnsupportedFormatException(String unsupportedFormat) {
+            super(
+                    String.format(UNSUPPORTED_FORMAT_ERROR, unsupportedFormat),
+                    StandardErrorMessage.UNSUPPORTED_FORMAT
+            );
+            this.unsupportedFormat = unsupportedFormat;
         }
     }
 

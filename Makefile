@@ -14,7 +14,8 @@ sonar-scan:
 	--build-arg SONAR_ORGANIZATION=${SONAR_ORGANIZATION} \
 	--build-arg SONAR_PROJECT_KEY=${SONAR_PROJECT_KEY} \
 	--build-arg SONAR_HOST_URL=${SONAR_HOST_URL} \
-	--build-arg SONAR_LOGIN=${SONAR_LOGIN}
+	--build-arg SONAR_LOGIN=${SONAR_LOGIN} \
+	--build-arg GITHUB_TOKEN=${GITHUB_TOKEN}
 
 .PHONY: export-docs
 export-docs:
