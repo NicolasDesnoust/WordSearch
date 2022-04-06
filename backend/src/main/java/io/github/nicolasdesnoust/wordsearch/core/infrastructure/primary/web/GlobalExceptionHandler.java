@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
     private final Environment env;
 
     @LogRestApiError
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler
     public ResponseEntity<RestApiError> handleAllExceptions(
             Exception exception,
             HttpServletRequest request

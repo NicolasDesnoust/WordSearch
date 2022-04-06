@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -47,6 +46,7 @@ public class ErrorResponseBuilder {
         this.userFriendlyErrorMessage = StandardErrorMessage.INTERNAL_SERVER_ERROR;
         this.status = HttpStatus.INTERNAL_SERVER_ERROR.value();
         this.messageArguments = new ArrayList<>();
+        this.subErrors = new ArrayList<>();
     }
 
     public ErrorResponseBuilder withUserFriendlyErrorMessage(UserFriendlyErrorMessage userFriendlyErrorMessage) {
@@ -81,10 +81,7 @@ public class ErrorResponseBuilder {
         Locale locale = LocaleContextHolder.getLocale();
         try {
             type = userFriendlyErrorMessage.getMessageKey();
-            System.err.println(Arrays.toString(messageArguments.toArray()));
             message = messages.getMessage(MESSAGE_PREFIX + type, messageArguments.toArray(), locale);
-            System.err.println(message);
-
         } catch (NoSuchMessageException e) {
             type = DEFAULT_KEY;
             message = messages.getMessage(MESSAGE_PREFIX + DEFAULT_KEY, null, locale);
